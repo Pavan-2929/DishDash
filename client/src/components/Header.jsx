@@ -34,7 +34,7 @@ function Header() {
 
       if (response.status === 200) {
         dispatch(logout());
-        dispatch(setUser(null))
+        dispatch(setUser(null));
         navigate("/login");
         toast.success("Logout Successfully", {
           style: {
@@ -66,10 +66,12 @@ function Header() {
   };
 
   return (
-    <nav className={`${isMenuOpen ? "bg-[#414141]" : ""} p-4 font-semibold`}>
+    <nav
+      className={`bg-gray-100 border-b-2 border-black p-3 font-semibold mb-10`}
+    >
       <div className="md:flex justify-around items-center">
-        <div className="text-[2rem] flex justify-around items-center relative">
-          <span className="text-purple-500 animate-fire">Auth</span>
+        <div className="text-[2.4rem] flex justify-around items-center relative">
+          <span className="text-amber-500 ">Auth</span>
           <div onClick={toggleMenu} className="md:hidden">
             {isMenuOpen ? <FaTimes /> : <FaBars />}
           </div>
@@ -77,11 +79,11 @@ function Header() {
 
         <div>
           <ul
-            className={`text-[1.3rem] md:flex ${
+            className={`text-[1.4rem] md:flex ${
               isMenuOpen ? "block" : "hidden"
-            } space-y-8 md:space-y-0 items-center flex flex-col md:flex-row justify-center `}
+            } space-y-8 md:space-y-0 font-semibold items-center flex flex-col md:flex-row justify-center `}
           >
-            <li className="md:ml-5 xl:mx-5 sm:mt-0 mt-10 hover:text-purple-700">
+            <li className="md:ml-5 xl:mx-5 sm:mt-0 mt-10 hover:text-amber-500">
               <NavLink to="/" onClick={closeMenu}>
                 Home
               </NavLink>
@@ -89,12 +91,12 @@ function Header() {
 
             {isLoggedIn ? (
               <>
-                <li className="md:ml-5 xl:mx-5 hover:text-purple-700">
+                <li className="md:ml-5 xl:mx-5 hover:text-amber-500">
                   <NavLink to="/login" onClick={handleLogout}>
                     Logout
                   </NavLink>
                 </li>
-                <li className="md:ml-5 xl:mx-5 hover:text-purple-700">
+                <li className="md:ml-5 xl:mx-5 hover:text-amber-500">
                   <NavLink to="/profile" onClick={closeMenu}>
                     {currentUser && currentUser.profilePicture && (
                       <img
@@ -110,12 +112,12 @@ function Header() {
               </>
             ) : (
               <>
-                <li className="md:ml-5 xl:mx-5 hover:text-purple-700">
+                <li className="md:ml-5 xl:mx-5 hover:text-amber-500">
                   <NavLink to="/register" onClick={closeMenu}>
                     Register
                   </NavLink>
                 </li>
-                <li className="md:ml-5 xl:mx-5 hover:text-purple-700">
+                <li className="md:ml-5 xl:mx-5 hover:text-amber-500">
                   <NavLink to="/login" onClick={closeMenu}>
                     Login
                   </NavLink>

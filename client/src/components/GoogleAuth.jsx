@@ -65,7 +65,7 @@ const GoogleAuth = () => {
     <button
       type="submit"
       onClick={handleGoogleClick}
-      className="bg-purple-700 text-white p-2 mt-5 hover:bg-purple-900 rounded"
+      className="bg-red-500 text-white p-2 mt-5 hover:bg-red-700 rounded"
     >
       Google
     </button>

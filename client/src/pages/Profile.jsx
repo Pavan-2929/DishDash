@@ -43,7 +43,7 @@ const Profile = () => {
         }
       );
       if (response.status === 200) {
-        dispatch(setUser(formData))
+        dispatch(setUser(formData));
         toast.success("Profile updated Sucessfully", {
           style: {
             borderRadius: "10px",
@@ -99,7 +99,6 @@ const Profile = () => {
     );
   };
 
-
   useEffect(() => {
     if (image) {
       handlefileUpload(image);
@@ -115,7 +114,7 @@ const Profile = () => {
 
       if (response.status === 200) {
         dispatch(logout());
-        dispatch(setUser(null))
+        dispatch(setUser(null));
         navigate("/login");
         toast.success("Logout Successfully", {
           style: {
@@ -190,9 +189,9 @@ const Profile = () => {
     <div className="flex justify-around mt-6">
       <form
         onSubmit={handleSubmit}
-        className="w-full lg:w-1/2 sm:p p-6 rounded-lg font-semibold bg-[#282828]"
+        className="w-full lg:w-1/2 sm:p p-6 rounded-lg font-semibold bg-gray-100 border shadow-md shadow-gray-500  border-gray-900"
       >
-        <h1 className="sm:text-5xl text-4xl font-bold mb-10 text-[#ccc] text-center">
+        <h1 className="sm:text-5xl text-4xl font-bold mb-10 text-center">
           Your Profile
         </h1>
 
@@ -226,61 +225,58 @@ const Profile = () => {
         </div>
 
         <div className="mb-4">
-          <label htmlFor="username" className="text-purple-700">
-            Username
-          </label>
+          <label htmlFor="username">Username</label>
           <input
             type="text"
             id="username"
             value={formData.username}
             onChange={handleChange}
-            className="w-full p-2 border bg-[#414141] text-[#ccc] rounded-sm"
+            className="w-full p-2 bg-gray-300 text-black focus:bg-none rounded-md border-2 border-gray-500"
           />
         </div>
 
         <div className="mb-4">
-          <label htmlFor="email" className="text-purple-700">
-            Email
-          </label>
+          <label htmlFor="email">Email</label>
           <input
             type="email"
             id="email"
             value={formData.email}
             onChange={handleChange}
-            className="w-full p-2 border bg-[#414141] text-[#ccc] rounded-sm disabled:opacity-60"
+            className="w-full p-2 bg-gray-300 text-black focus:bg-none rounded-md border-2 border-gray-500"
             disabled
           />
         </div>
 
         <div className="mb-4">
-          <label htmlFor="password" className="text-purple-700">
-            New Password
-          </label>
+          <label htmlFor="password">New Password</label>
           <input
             type="password"
             id="password"
             value={formData.password}
             onChange={handleChange}
-            className="w-full p-2 border bg-[#414141] text-[#ccc] rounded-sm"
+            className="w-full p-2 bg-gray-300 text-black focus:bg-none rounded-md border-2 border-gray-500"
           />
         </div>
 
         <div className="mb-4 flex justify-center">
           <button
             type="submit"
-            className="bg-purple-700 text-white p-2 mt-5 hover:bg-purple-900 rounded"
+            className="bg-amber-500 text-white p-2 mt-2 hover:bg-amber-600 rounded"
           >
             Update Profile
           </button>
         </div>
         <div className="flex justify-between mt-4 text-[1.2rem] =">
           <div
-            className="cursor-pointer underline text-yellow-500"
+            className="cursor-pointer underline text-red-500 hover:text-red-600"
             onClick={handleLogout}
           >
             Signout
           </div>
-          <div className="cursor-pointer underline text-red-500" onClick={handleDeleteUser}>
+          <div
+            className="cursor-pointer underline text-red-500 hover:text-red-600"
+            onClick={handleDeleteUser}
+          >
             Delete Account
           </div>
         </div>

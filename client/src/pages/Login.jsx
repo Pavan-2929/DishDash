@@ -47,7 +47,6 @@ const Login = () => {
         });
         console.log(`Unexpected status code: ${response.status}`);
       }
-
     } catch (error) {
       console.log(error);
       toast.error(`${error.response.data.message}`, {
@@ -60,46 +59,40 @@ const Login = () => {
     }
   };
 
-  
   return (
     <div className="flex justify-around mt-6 ">
-      <div className="hidden lg:flex">
-        <img
-          src={RegisterImage}
-          alt="Register"
-          className="w-[25rem] h-[30rem]"
-        />
-      </div>
 
       <form
         onSubmit={handleSubmitLogin}
-        className="w-full lg:w-1/2 sm:p-14 p-6 rounded-lg mt-4 font-semibold bg-[#282828]"
+        className="w-full lg:w-1/2 sm:p-14 p-6 rounded-lg mt-4 font-semibold bg-gray-100 border shadow-md shadow-gray-500  border-gray-900"
       >
-        <h1 className="sm:text-5xl text-3xl font-bold mb-10 text-[#ccc]">
+        <h1 className="sm:text-5xl text-3xl font-bold mb-10 ">
           Login with your account
         </h1>
 
         <div className="mb-4">
-          <label htmlFor="email" className="text-purple-700">
+          <label htmlFor="email" className="text-black">
             Email
           </label>
           <input
             type="email"
             id="email"
             onChange={handleChange}
-            className="w-full p-2 border bg-[#414141] text-[#ccc] focus:bg-none rounded-sm"
+            className="w-full p-2 bg-gray-300 text-black focus:bg-none rounded-md border-2 border-gray-500"
+            placeholder="Enter email"
           />
         </div>
 
         <div className="mb-4">
-          <label htmlFor="password" className="text-purple-700">
+          <label htmlFor="password" className="text-black">
             Password
           </label>
           <input
             type="password"
             id="password"
             onChange={handleChange}
-            className="w-full p-2 border bg-[#414141] text-[#ccc] rounded-sm"
+            placeholder="Enter password"
+            className="w-full p-2 bg-gray-300 text-black rounded-md border-2 border-gray-500"
           />
         </div>
 
@@ -107,7 +100,7 @@ const Login = () => {
           <div>
             <button
               type="submit"
-              className="bg-purple-700 text-white p-2 mt-5 hover:bg-purple-900 rounded focus:outline-none mr-10"
+              className="bg-amber-500 text-white p-2 mt-5 hover:bg-amber-600 rounded focus:outline-none mr-10"
             >
               Login Now
             </button>
@@ -115,11 +108,11 @@ const Login = () => {
           </div>
           <div className="flex items-center text-[1.2rem]">
             <div className="mt-5">
-              <h3 className="text-gray-300">Create an account?</h3>
+              <h3 className="text-black">Create an account?</h3>
             </div>
             <NavLink
               to="/register"
-              className=" text-white p-2 mt-5 underline rounded ml-2 focus:outline-none"
+              className=" text-black p-2 mt-5 underline rounded ml-2 focus:outline-none hover:text-gray-700"
             >
               Register
             </NavLink>

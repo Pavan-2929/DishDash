@@ -31,16 +31,16 @@ const Home = () => {
   return (
     <div className="container mx-auto mt-10 p-4 text-center">
       {isLoggedIn ? (
-        <div className="bg-[#282828] p-6 rounded-lg shadow-lg">
-          <h1 className="text-3xl font-semibold mb-4 text-white">
+        <div className="bg-gray-100 p-6 rounded-lg shadow-lg">
+          <h1 className="text-3xl font-semibold mb-4 0">
             Hello, {userData.username}!
           </h1>
-          <p className="text-lg text-white">
+          <p className="text-lg 0">
             Welcome to our awesome platform. Explore and enjoy your time!
           </p>
         </div>
       ) : (
-        <div className="bg-[#282828]  p-6 rounded-lg shadow-lg">
+        <div className="bg-gray-100  p-6 rounded-lg shadow-lg">
           <h1 className="text-3xl font-semibold mb-4">
             You need to login/Register first
           </h1>

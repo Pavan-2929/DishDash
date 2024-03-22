@@ -23,6 +23,10 @@ mongoose
   })
   .catch((error) => console.log(error));
 
+app.get('/', (req, res) => {
+  res.json("Welcome")
+})
+
 app.use('/api/auth', authRouter)  
 app.use('/api', userRotuer)
 
