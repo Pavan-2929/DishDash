@@ -23,14 +23,82 @@ const Profile = () => {
     email: currentUser?.email || "",
     password: "",
     profilePicture: currentUser?.profilePicture || "",
+    phoneNo: currentUser?.phoneNo || "",
+    address: {
+      street: currentUser?.address?.street || "",
+      city: currentUser?.address?.city || "",
+      zipcode: currentUser?.address?.zipcode || "",
+      state: currentUser?.address?.state || "",
+    },
   });
   const [image, setImage] = useState(undefined);
   const [imagePercentage, setImagePercentage] = useState(0);
   const [imageError, setImageError] = useState(false);
+  const [selectedState, setSelectedState] = useState('');
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.id]: e.target.value });
+    if (
+      e.target.id === "street" ||
+      e.target.id === "zipcode" ||
+      e.target.id === "city" ||
+      e.target.id === "state"
+    ) {
+      setFormData({
+        ...formData,
+        address: {
+          ...formData.address,
+          [e.target.id]: e.target.value,
+        },
+      });
+    } else {
+      setFormData({
+        ...formData,
+        [e.target.id]: e.target.value,
+      });
+    }
   };
+
+  const handleStateChnage = (e) => {
+    setSelectedState(e.target.value)
+
+    setFormData({...formData, address: { ...formData.address, [e.target.id]:e.target.value}})
+  }
+  const indianStates = [
+    "Andhra Pradesh",
+    "Arunachal Pradesh",
+    "Assam",
+    "Bihar",
+    "Chhattisgarh",
+    "Goa",
+    "Gujarat",
+    "Haryana",
+    "Himachal Pradesh",
+    "Jharkhand",
+    "Karnataka",
+    "Kerala",
+    "Madhya Pradesh",
+    "Maharashtra",
+    "Manipur",
+    "Meghalaya",
+    "Mizoram",
+    "Nagaland",
+    "Odisha",
+    "Punjab",
+    "Rajasthan",
+    "Sikkim",
+    "Tamil Nadu",
+    "Telangana",
+    "Tripura",
+    "Uttar Pradesh",
+    "Uttarakhand",
+    "West Bengal",
+    "Andaman and Nicobar Islands",
+    "Chandigarh",
+    "Dadra and Nagar Haveli and Daman and Diu",
+    "Delhi",
+    "Lakshadweep",
+    "Puducherry",
+  ];
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -256,6 +324,68 @@ const Profile = () => {
             onChange={handleChange}
             className="w-full p-2 bg-gray-300 text-black focus:bg-none rounded-md border-2 border-gray-500"
           />
+        </div>
+
+        <div className="mb-4">
+          <label htmlFor="password">Phone Number</label>
+          <input
+            type="text"
+            id="phoneNo"
+            value={formData.phoneNo}
+            onChange={handleChange}
+            className="w-full p-2 bg-gray-300 text-black focus:bg-none rounded-md border-2 border-gray-500"
+          />
+        </div>
+
+        <div className="grid grid-cols-2 gap-4">
+          <div className="mb-4">
+            <label htmlFor="street">Street Line</label>
+            <input
+              type="text"
+              id="street"
+              value={formData.address.street}
+              onChange={handleChange}
+              className="w-full p-2 bg-gray-300 text-black focus:bg-none rounded-md border-2 border-gray-500"
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="city">City</label>
+            <input
+              type="text"
+              id="city"
+              value={formData.address.city}
+              onChange={handleChange}
+              className="w-full p-2 bg-gray-300 text-black focus:bg-none rounded-md border-2 border-gray-500"
+            />
+          </div>
+        </div>
+        <div className="grid grid-cols-2 gap-4">
+          <div className="mb-4">
+            <label htmlFor="zipcode">Zipcode</label>
+            <input
+              type="text"
+              id="zipcode"
+              value={formData.address.zipcode}
+              onChange={handleChange}
+              className="w-full p-2 bg-gray-300 text-black focus:bg-none rounded-md border-2 border-gray-500"
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="state">State</label>
+            <select
+              id="state"
+              value={selectedState}
+              onChange={handleStateChnage}
+              className="w-full p-2 bg-gray-300 text-black focus:bg-none rounded-md border-2 border-gray-500"
+            >
+              <option value="">Select State</option>
+              {indianStates.map((state, index) => (
+                <option key={index} value={state}>
+                  {state}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
 
         <div className="mb-4 flex justify-center">

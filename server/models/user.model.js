@@ -21,6 +21,16 @@ const userSchema = new mongoose.Schema({
     default:
       "https://img.freepik.com/premium-vector/man-avatar-profile-picture-vector-illustration_268834-538.jpg",
   },
+  address: {
+    street: String,
+    city: String,
+    zipcode: String,
+    state: String
+  },
+  phoneNo: {
+    type: String,
+    unique: true,
+  }
 });
 
 userSchema.pre("save", async function () {
