@@ -3,6 +3,9 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../redux/auth/authSlice";
 import { NavLink } from "react-router-dom";
+import Hero from "../components/Hero";
+import HomeMenu from "../components/HomeMenu";
+import SectionHeaders from "../components/SectionHeaders";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -29,35 +32,54 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="container mx-auto mt-10 p-4 text-center">
-      {isLoggedIn ? (
-        <div className="bg-gray-100 p-6 rounded-lg shadow-lg">
-          <h1 className="text-3xl font-semibold mb-4 0">
-            Hello, {userData.username}!
-          </h1>
-          <p className="text-lg 0">
-            Welcome to our awesome platform. Explore and enjoy your time!
+    <div>
+      <Hero />
+      <HomeMenu />
+      <section>
+        <div className="text-center mt-16 mb-8">
+          <SectionHeaders subHeader={"Our Story"} mainHeader={"About us"} />
+        </div>
+        <div className="max-w-6xl text-gray text-center mx-auto flex flex-col gap-4 text-lg">
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos
+            soluta iste quia consectetur, earum explicabo natus molestiae autem
+            voluptatibus velit ratione voluptates at delectus magni distinctio
+            iusto? Recusandae, repudiandae animi?
+          </p>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident
+            non, cupiditate soluta cumque asperiores tempore sed aut atque quo
+            neque animi nesciunt, laborum fuga facere eos assumenda minima
+            possimus molestiae!
+          </p>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur,
+            sed eos accusamus autem excepturi, nihil aliquam dolorem laboriosam
+            unde, a iusto ab dignissimos! Obcaecati necessitatibus excepturi
+            voluptate non unde libero enim repudiandae dolores rerum ipsa!
           </p>
         </div>
-      ) : (
-        <div className="bg-gray-100  p-6 rounded-lg shadow-lg">
-          <h1 className="text-3xl font-semibold mb-4">
-            You need to login/Register first
-          </h1>
-          <p className="text-lg">
-            Sign in or register to access exclusive features and content.
-          </p>
-          <div className="mt-8">
-            <NavLink to='/login' className="bg-blue-500 text-white px-4 py-2 rounded-full">
-              Login
-            </NavLink>
-            <span className="ml-2">or</span>
-            <NavLink to='/register' className="bg-green-500 text-white px-4 py-2 rounded-full ml-2">
-              Register
-            </NavLink>
-          </div>
+      </section>
+      <section>
+        <div className="text-center mt-16 mb-8">
+          <SectionHeaders
+            subHeader={"Do not hesitate to"}
+            mainHeader={"Contact us"}
+          />
         </div>
-      )}
+        <div className="max-w-6xl text-gray text-center mx-auto flex flex-col gap-2 text-2xl">
+          <p>
+            <a href="mailto:mealmaster@gmail.com" className="hover:text-snow">
+              Email: mealmaster@gmail.com
+            </a>
+          </p>
+          <p>
+            <a href="tel:+913244447730" className="hover:text-snow">
+              Phone no: +91 32444 47730
+            </a>
+          </p>
+        </div>
+      </section>
     </div>
   );
 };
