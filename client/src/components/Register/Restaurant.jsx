@@ -1,7 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { cuisineList } from "../../data/cuisineData";
 import axios from "axios";
 import ImageUpload from "../ImageUpload";
+import {
+  getDownloadURL,
+  getStorage,
+  ref,
+  uploadBytesResumable,
+} from "firebase/storage";
+import { app } from "../../firebase";
 
 const RestaurantForm = () => {
   const [formData, setFormData] = useState({
@@ -17,6 +24,10 @@ const RestaurantForm = () => {
   const [menuName, setMenuName] = useState("");
   const [menuPrice, setMenuPrice] = useState("");
   const [menuDescription, setMenuDescription] = useState("");
+  const [menuImage, setMenuImage] = useState("");
+  const [image, setImage] = useState(undefined);
+  const [imagePercentage, setImagePercentage] = useState(0);
+  const [imageError, setImageError] = useState(false);
 
   const handleChange = (e) => {
     setFormData({
@@ -53,9 +64,14 @@ const RestaurantForm = () => {
       name: menuName,
       price: menuPrice,
       description: menuDescription,
+      imageUrl: menuImage,
     };
 
     setFormData({ ...formData, menuItems: [...formData.menuItems, data] });
+    setMenuName("");
+    setMenuDescription("");
+    setMenuImage("");
+    setMenuPrice("");
   };
 
   const removeMenuItem = (index) => {
@@ -65,7 +81,37 @@ const RestaurantForm = () => {
     setFormData({ ...formData, menuItems: updatedMenuItems });
   };
 
-  console.log(formData);
+  const handleMenuImageUpload = async (image) => {
+    const storage = getStorage(app);
+    const fileName = new Date().getTime() + image.name;
+    const storageRef = ref(storage, fileName);
+
+    const uploadtask = uploadBytesResumable(storageRef, image);
+
+    uploadtask.on(
+      "state_changed",
+      (snapShot) => {
+        const progress =
+          (snapShot.bytesTransferred / snapShot.totalBytes) * 100;
+        setImagePercentage(Math.round(progress));
+      },
+      (error) => {
+        setImageError(true);
+        console.log(error);
+      },
+      () => {
+        getDownloadURL(uploadtask.snapshot.ref).then((downloadURL) =>
+          setMenuImage(downloadURL)
+        );
+      }
+    );
+  };
+
+  useEffect(() => {
+    if (image) {
+      handleMenuImageUpload(image);
+    }
+  }, [image]);
 
   return (
     <div className="flex justify-around items-center mt-6">
@@ -159,72 +205,132 @@ const RestaurantForm = () => {
 
         <ImageUpload formData={formData} setFormData={setFormData} />
 
-        <div className="mb-4 mt-6 border-b-2 border-gray-500 pb-6 bg-gray-200 p-4">
+        <div className="mb-4 mt-6 border-b-2 border-gray-500 pb-6  ">
           <div className="text-2xl mb-6 ">
             <p>Upload your famous dishes</p>
           </div>
-          <div>
-            <div className="grid grid-cols-2 gap-4">
+          <div className="bg-gray-200 rounded-md pb-4">
+            <div className="border-b-2 border-gray-400 mb-4 p-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="mb-4">
+                  <label htmlFor="name">Dish-Name</label>
+                  <input
+                    type="String"
+                    id="name"
+                    value={menuName}
+                    onChange={(e) => setMenuName(e.target.value)}
+                    className="w-full p-2 bg-gray-300 focus:bg-none rounded-md border-2 border-gray-500"
+                    required
+                  />
+                </div>
+                <div className="mb-4">
+                  <label htmlFor="price">Dish-price</label>
+                  <input
+                    type="Number"
+                    id="price"
+                    value={menuPrice}
+                    onChange={(e) => setMenuPrice(e.target.value)}
+                    className="w-full p-2 bg-gray-300 focus:bg-none rounded-md border-2 border-gray-500"
+                    required
+                  />
+                </div>
+              </div>
               <div className="mb-4">
-                <label htmlFor="name">Dish-Name</label>
+                <label htmlFor="description">Dish-Description</label>
                 <input
-                  type="String"
-                  id="name"
-                  value={menuName}
-                  onChange={(e) => setMenuName(e.target.value)}
+                  type="text"
+                  id="description"
+                  value={menuDescription}
+                  onChange={(e) => setMenuDescription(e.target.value)}
                   className="w-full p-2 bg-gray-300 focus:bg-none rounded-md border-2 border-gray-500"
                   required
                 />
               </div>
-              <div className="mb-4">
-                <label htmlFor="price">Dish-price</label>
+              <div className="py-4">
+                <label
+                  htmlFor="menuImageUpload"
+                  className="cursor-pointer bg-amber-500 text-white py-2 px-4 rounded-md hover:bg-amber-600"
+                >
+                  Choose File
+                </label>
                 <input
-                  type="Number"
-                  id="price"
-                  value={menuPrice}
-                  onChange={(e) => setMenuPrice(e.target.value)}
-                  className="w-full p-2 bg-gray-300 focus:bg-none rounded-md border-2 border-gray-500"
-                  required
+                  type="file"
+                  id="menuImageUpload"
+                  className="hidden"
+                  onChange={(e) => setImage(e.target.files[0])}
                 />
+                {image && (
+                  <div>
+                    <p className="font-semibold my-6">
+                      {imageError ? (
+                        <span className="text-red-700">
+                          Error Uploading Image (Image should be less than 2 MB)
+                        </span>
+                      ) : imagePercentage > 0 && imagePercentage < 100 ? (
+                        <span className="text-yellow-500">{`Uploading ${imagePercentage}%`}</span>
+                      ) : imagePercentage === 100 ? (
+                        <span className="text-green-500">Image uploaded</span>
+                      ) : (
+                        ""
+                      )}
+                    </p>
+                    <img src={menuImage} alt="" />
+                  </div>
+                )}
               </div>
             </div>
-            <div className="mb-4">
-              <label htmlFor="description">Dish-Description</label>
-              <input
-                type="text"
-                id="description"
-                value={menuDescription}
-                onChange={(e) => setMenuDescription(e.target.value)}
-                className="w-full p-2 bg-gray-300 focus:bg-none rounded-md border-2 border-gray-500"
-                required
-              />
+            <div className=" flex justify-center">
+              <button
+                type="submit"
+                className="bg-amber-500 text-white py-2 px-4 rounded-md hover:bg-amber-600"
+                onClick={addMenuItems}
+              >
+                Add dish
+              </button>
             </div>
-            <button
-              type="submit"
-              className="bg-amber-500 text-white py-2 px-4 rounded-md hover:bg-amber-600 mb-4"
-              onClick={addMenuItems}
-            >
-              Add dish
-            </button>
           </div>
 
-          <div>
-            {formData.menuItems.map((menuItem, index) => (
-              <div
-                key={index}
-                className="border border-gray-400 p-4 mb-4 rounded-md"
-              >
-                <p className="font-bold">{menuItem.name}</p>
-                <p className="text-gray-600">{menuItem.description}</p>
-                <p className="font-semibold">{menuItem.price}</p>
-                <button
-                  className="bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600 mt-2"
-                  onClick={() => removeMenuItem(index)}
-                >
-                  Remove
-                </button>
-              </div>
-            ))}
+          <div className="bg-gray-200 mt-14 gap-4 p-8 rounded-md">
+            <div className="text-2xl mb-6 ">
+              <p>Your dishes</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 ">
+              {formData.menuItems.length === 0 ? (
+                <p className="text-2xl text-red-500">please add dished</p>
+              ) : (
+                formData.menuItems.map((menuItem, index) => (
+                  <div
+                    key={index}
+                    className="border border-gray-400 rounded-md bg-gray-300 overflow-hidden shadow-sm p-2"
+                  >
+                    <div className="flex justify-center">
+                      <img
+                        src={menuItem.imageUrl}
+                        alt={menuItem.name}
+                        className="w-32 h-32 object-cover"
+                      />
+                    </div>
+                    <div className="p-3">
+                      <p className="text-base font-semibold">
+                        name: {menuItem.name}
+                      </p>
+                      <p className="text-gray-600 text-sm mb-1">
+                        desciption: {menuItem.description}
+                      </p>
+                      <p className="text-green-600 font-semibold text-sm">
+                        price: ${menuItem.price}
+                      </p>
+                      <button
+                        className="bg-red-500 text-white py-1 px-3 rounded-md hover:bg-red-600 mt-4 text-sm"
+                        onClick={() => removeMenuItem(index)}
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
           </div>
         </div>
 
