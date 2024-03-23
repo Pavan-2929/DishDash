@@ -11,6 +11,7 @@ import { app } from "../firebase";
 import toast from "react-hot-toast";
 import { logout, setUser } from "../redux/auth/authSlice";
 import { useNavigate } from "react-router-dom";
+import indianStates from "../data/stateData";
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -63,43 +64,6 @@ const Profile = () => {
 
     setFormData({...formData, address: { ...formData.address, [e.target.id]:e.target.value}})
   }
-  const indianStates = [
-    "Andhra Pradesh",
-    "Arunachal Pradesh",
-    "Assam",
-    "Bihar",
-    "Chhattisgarh",
-    "Goa",
-    "Gujarat",
-    "Haryana",
-    "Himachal Pradesh",
-    "Jharkhand",
-    "Karnataka",
-    "Kerala",
-    "Madhya Pradesh",
-    "Maharashtra",
-    "Manipur",
-    "Meghalaya",
-    "Mizoram",
-    "Nagaland",
-    "Odisha",
-    "Punjab",
-    "Rajasthan",
-    "Sikkim",
-    "Tamil Nadu",
-    "Telangana",
-    "Tripura",
-    "Uttar Pradesh",
-    "Uttarakhand",
-    "West Bengal",
-    "Andaman and Nicobar Islands",
-    "Chandigarh",
-    "Dadra and Nagar Haveli and Daman and Diu",
-    "Delhi",
-    "Lakshadweep",
-    "Puducherry",
-  ];
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -378,7 +342,7 @@ const Profile = () => {
               onChange={handleStateChnage}
               className="w-full p-2 bg-gray-300 text-black focus:bg-none rounded-md border-2 border-gray-500"
             >
-              <option value="">Select State</option>
+              <option value="">{formData}</option>
               {indianStates.map((state, index) => (
                 <option key={index} value={state}>
                   {state}

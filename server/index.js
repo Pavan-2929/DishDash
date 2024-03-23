@@ -4,6 +4,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import authRouter from "./routes/auth.routes.js";
 import userRotuer from "./routes/user.routes.js";
+import restaurantRouter from "./routes/restaurant.routes.js";
 
 const app = express();
 app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
@@ -29,6 +30,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/auth', authRouter)  
 app.use('/api', userRotuer)
+app.use("/api/restaurant", restaurantRouter)
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
