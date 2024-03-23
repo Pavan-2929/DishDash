@@ -63,7 +63,7 @@ const Register = () => {
         className="w-full lg:w-1/2 sm:p-8 p-4 rounded-lg mt-4 font-semibold bg-gray-100  border shadow-md shadow-gray-500  border-gray-900"
       >
         <h1 className="sm:text-5xl text-3xl font-bold mb-6 text-center">
-          Register as user
+          Register with your account
         </h1>
 
         <div className="mb-4">

@@ -25,12 +25,12 @@ const userSchema = new mongoose.Schema({
     street: String,
     city: String,
     zipcode: String,
-    state: String
+    state: String,
   },
   phoneNo: {
     type: String,
     unique: true,
-  }
+  },
 });
 
 userSchema.pre("save", async function () {

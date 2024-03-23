@@ -6,7 +6,7 @@ const menuItemSchema = new mongoose.Schema({
 });
 
 const restaurantSchema = new mongoose.Schema({
-  user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   restaurantName: { type: String, required: true },
   city: { type: String, required: true },
   state: { type: String, required: true },

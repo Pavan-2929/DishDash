@@ -9,10 +9,12 @@ import {
   uploadBytesResumable,
 } from "firebase/storage";
 import { app } from "../../firebase";
-import Register from "./User";
+import { useSelector } from "react-redux";
 
 const RestaurantForm = () => {
+  const currentUser = useSelector((state) => state.currentUser);
   const [formData, setFormData] = useState({
+    userId: currentUser._id,
     restaurantName: "",
     city: "",
     state: "",
@@ -22,6 +24,7 @@ const RestaurantForm = () => {
     menuItems: [],
     imageUrl: "",
   });
+  console.log(formData);
   const [menuName, setMenuName] = useState("");
   const [menuPrice, setMenuPrice] = useState("");
   const [menuDescription, setMenuDescription] = useState("");
