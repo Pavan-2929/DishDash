@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { FiClock, FiDollarSign, FiMapPin } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import SkeletonLoader from "../loader/Card";
 
 const Restaurant = () => {
   const [restaurants, setRestaurants] = useState([]);
@@ -72,6 +73,9 @@ const Restaurant = () => {
               </div>
             </div>
           ))}
+          <Link to='/restaurant/create'>
+          <SkeletonLoader/>
+          </Link>
       </div>
     </div>
   );

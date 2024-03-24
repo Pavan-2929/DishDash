@@ -119,7 +119,6 @@ const SingleRestaurant = () => {
         `http://localhost:3000/api/restaurant/get/${params.id}`
       );
 
-      console.log(response);
       setFormData(response.data);
     } catch (error) {
       console.log(error);
@@ -136,6 +135,8 @@ const SingleRestaurant = () => {
     }
   }, [image]);
 
+  console.log(formData);
+
   return (
     <div>
       <div className="flex justify-around items-center mt-6">
@@ -146,6 +147,15 @@ const SingleRestaurant = () => {
           <h1 className="sm:text-5xl text-3xl font-bold mb-6 text-center">
             Manage Your restauarnt
           </h1>
+
+          <div className="flex justify-center my-8">
+            <img
+              src={formData.imageUrl}
+              className="h-[500px] w-auto rounded-md shadow-md"
+              alt=""
+            />
+          </div>
+
           <div className="mb-4">
             <label htmlFor="restaurantName">Restaurant Name</label>
             <input
