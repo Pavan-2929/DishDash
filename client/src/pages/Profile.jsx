@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import RestaurantForm from "../components/Profile/Restaurant";
 import UserProfile from "../components/Profile/UserProfile";
+import axios from "axios";
 
 const Profile = () => {
   const [selectUserType, setSelectUserType] = useState("userProfile");
@@ -11,7 +12,7 @@ const Profile = () => {
 
   return (
     <div>
-      <div className="flex justify-center mb-4">
+      <div className="flex justify-center mb-8 border-b-2 border-gray-500 pb-8">
         <button
           onClick={() => handleSelection("userProfile")}
           className={`${
