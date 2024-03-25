@@ -42,3 +42,15 @@ export const updateUser = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getUserById = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+
+    const userData = await User.findById(id);
+
+    res.status(200).json(userData)
+  } catch (error) {
+    console.log(error);
+  }
+}

@@ -5,9 +5,10 @@ import Register from "./pages/Register";
 import Header from "./components/Header";
 import Profile from "./pages/Profile";
 import Footer from "./components/Footer";
-import SingleRestaurant from "./components/SingleRestaurant";
+import SingleRestaurant from "./components/Profile/SingleRestaurant";
 import RestaurantForm from "./components/Profile/RestaurantForm";
 import Menu from "./pages/Menu";
+import RestaurantMenu from "./components/menu/RestaurantMenu";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/menu" element={<Menu />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/restaurant/:id" element={<RestaurantMenu />} />
           <Route path="/restaurant/manage/:id" element={<SingleRestaurant />} />
           <Route path="/restaurant/create" element={<RestaurantForm />} />
         </Routes>

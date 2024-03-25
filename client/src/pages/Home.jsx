@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../redux/auth/authSlice";
 import { NavLink } from "react-router-dom";
 import Hero from "../components/Hero";
-import HomeMenu from "../components/HomeMenu";
+import HomeMenu from "../components/menu/HomeMenu";
 import SectionHeaders from "../components/SectionHeaders";
 
 const Home = () => {

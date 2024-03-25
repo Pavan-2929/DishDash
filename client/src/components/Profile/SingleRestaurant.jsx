@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { cuisineList } from "../data/cuisineData";
+import { cuisineList } from "../../data/cuisineData";
 import axios from "axios";
-import ImageUpload from "./ImageUpload";
+import ImageUpload from "../ImageUpload";
 import {
   getDownloadURL,
   getStorage,
   ref,
   uploadBytesResumable,
 } from "firebase/storage";
-import { app } from "../firebase";
+import { app } from "../../firebase";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import MenuCard from "../cards/MenuCard";
 
 const SingleRestaurant = () => {
   const params = useParams();
@@ -333,35 +334,11 @@ const SingleRestaurant = () => {
                   <p className="text-2xl text-red-500">please add dished</p>
                 ) : (
                   formData.menuItems.map((menuItem, index) => (
-                    <div
-                      key={index}
-                      className="border border-gray-400 rounded-md bg-gray-300 overflow-hidden shadow-sm p-2"
-                    >
-                      <div className="flex justify-center">
-                        <img
-                          src={menuItem.imageUrl}
-                          alt={menuItem.name}
-                          className="w-32 h-32 object-cover"
-                        />
-                      </div>
-                      <div className="p-3">
-                        <p className="text-base font-semibold">
-                          name: {menuItem.name}
-                        </p>
-                        <p className="text-gray-600 text-sm mb-1">
-                          desciption: {menuItem.description}
-                        </p>
-                        <p className="text-green-600 font-semibold text-sm">
-                          price: ${menuItem.price}
-                        </p>
-                        <button
-                          className="bg-red-500 text-white py-1 px-3 rounded-md hover:bg-red-600 mt-4 text-sm"
-                          onClick={() => removeMenuItem(index)}
-                        >
-                          Remove
-                        </button>
-                      </div>
-                    </div>
+                    <MenuCard
+                      menuItem={menuItem}
+                      index={index}
+                      removeMenuItem={removeMenuItem}
+                    />
                   ))
                 )}
               </div>

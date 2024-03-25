@@ -33,7 +33,10 @@ const Restaurant = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-8">
         {restaurants &&
           restaurants.map((restaurant) => (
+            <div key={restaurant._id}>
+
             <RestaurantCard restaurant={restaurant} path={`manage/${restaurant._id}`}/>
+            </div>
           ))}
         <Link to="/restaurant/create">
           <SkeletonLoader />

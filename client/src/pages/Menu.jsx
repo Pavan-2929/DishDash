@@ -29,7 +29,12 @@ const Menu = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-8">
           {restaurants &&
             restaurants.map((restaurant) => (
-              <RestaurantCard restaurant={restaurant} path={`${restaurant._id}`}/>
+              <div key={restaurant._id}>
+                <RestaurantCard
+                  restaurant={restaurant}
+                  path={`${restaurant._id}`}
+                />
+              </div>
             ))}
         </div>
       </div>
