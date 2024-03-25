@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 
 const menuItemSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  price: { type: Number, required: true },
-  desciption: { type: String, required: true },
-  imageUrl: { type: String, required: true },
+  name: { type: String },
+  price: { type: Number },
+  desciption: { type: String },
+  imageUrl: { type: String },
 });
 
 const restaurantSchema = new mongoose.Schema({

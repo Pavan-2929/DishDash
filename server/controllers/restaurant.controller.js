@@ -27,11 +27,15 @@ export const getRestaurantsbyUserID = async (req, res, next) => {
 export const getRestaurantsbyRestaurantID = async (req, res, next) => {
   try {
     const id = req.params.id;
-    console.log(req.params);
-    const restaurant = await Restaurant.findById(id);
+console.log(id);
+    const reqrestaurant = await Restaurant.findById(id);
 
-    res.status(200).json(restaurant);
-  } catch (error) {}
+
+    res.status(200).json(reqrestaurant);
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
 };
 
 export const updateRestaurant = async (req, res, next) => {
@@ -41,13 +45,24 @@ export const updateRestaurant = async (req, res, next) => {
     const udpatedData = req.body;
 
     const updatedRestaurantData = await Restaurant.findByIdAndUpdate(
-      id,
+      { _id: id },
       { $set: udpatedData },
       { new: true }
     );
 
-    res.status(200).json(updatedRestaurantData)
+    res.status(200).json(updatedRestaurantData);
   } catch (error) {
     console.log(data);
+  }
+};
+
+export const getAllRestaurants = async (req, res, next) => {
+  try {
+    const restaurants = await Restaurant.find();
+    console.log(restaurants);
+    res.status(200).json(restaurants);
+  } catch (error) {
+    next(error);
+    console.log(error);
   }
 };
