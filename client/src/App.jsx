@@ -9,7 +9,7 @@ import SingleRestaurant from "./components/Profile/SingleRestaurant";
 import RestaurantForm from "./components/Profile/RestaurantForm";
 import Menu from "./pages/Menu";
 import RestaurantMenu from "./components/menu/RestaurantMenu";
-import CartIcon from "./components/CartIcon";
+import CartIcon from "./components/cart/CartIcon";
 
 function App() {
   return (
