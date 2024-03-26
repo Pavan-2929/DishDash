@@ -3,12 +3,9 @@ import { FaBars, FaTimes } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-
-
 function Header() {
-
-  const isLoggedIn = useSelector((state) => state.isLoggedIn);
-  const currentUser = useSelector((state) => state.currentUser);
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const currentUser = useSelector((state) => state.auth.currentUser);
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 

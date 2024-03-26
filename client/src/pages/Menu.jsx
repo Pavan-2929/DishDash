@@ -51,7 +51,7 @@ const Menu = () => {
           Menu-Items
         </button>
       </div>
-      {selectUserType === restaurants ? (
+      {selectUserType === "restaurants" ? (
         <div>
           <div className="mb-6 text-center font-bold text-3xl">
             <p>Explore Restaurants</p>

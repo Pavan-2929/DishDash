@@ -1,6 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../redux/cart/cartSlice";
+import { useSelector } from "react-redux";
 
 const MenuCart = ({ menuItem, index }) => {
+  const [nextId, setNextId] = useState(1); // State to keep track of next ID
+
+  const cartData = {
+    _id: nextId, // Assign the next available ID
+    imageUrl: menuItem.imageUrl,
+    name: menuItem.name,
+    description: menuItem.description,
+    price: menuItem.price,
+    quantity: 1,
+  };
+
+  const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart);
+  const handleCart = () => {
+    dispatch(addToCart(cartData));
+    setNextId(nextId + 1); // Increment the ID for the next item
+  };
+
   return (
     <div
       key={index}
@@ -23,7 +44,7 @@ const MenuCart = ({ menuItem, index }) => {
         </p>
         <button
           className="bg-red-500 text-white py-1 px-3 rounded-md hover:bg-red-600 mt-4 text-sm"
-          onClick={() => removeMenuItem(index)}
+          onClick={handleCart}
         >
           Add To cart
         </button>

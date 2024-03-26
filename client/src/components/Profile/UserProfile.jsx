@@ -17,7 +17,7 @@ const UserProfile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const fileRef = useRef(null);
-  const currentUser = useSelector((state) => state.currentUser);
+  const currentUser = useSelector((state) => state.auth.currentUser);
 
   const [formData, setFormData] = useState({
     username: currentUser?.username || "",

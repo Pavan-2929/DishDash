@@ -9,8 +9,8 @@ import SectionHeaders from "../components/SectionHeaders";
 
 const Home = () => {
   const dispatch = useDispatch();
-  const isLoggedIn = useSelector((state) => state.isLoggedIn);
-  const currentUser = useSelector((state) => state.currentUser);
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const currentUser = useSelector((state) => state.auth.currentUser);
   const [userData, setUserData] = useState({});
 
   const getUserData = async () => {

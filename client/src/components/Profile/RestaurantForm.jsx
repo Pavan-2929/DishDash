@@ -13,7 +13,7 @@ import { useSelector } from "react-redux";
 import MenuCard from "../cards/MenuCard";
 
 const RestaurantForm = () => {
-  const currentUser = useSelector((state) => state.currentUser);
+  const currentUser = useSelector((state) => state.auth.currentUser);
   const [formData, setFormData] = useState({
     userId: currentUser._id,
     restaurantName: "",

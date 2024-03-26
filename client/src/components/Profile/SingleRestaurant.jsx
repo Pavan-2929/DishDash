@@ -16,7 +16,7 @@ import MenuCard from "../cards/MenuCard";
 const SingleRestaurant = () => {
   const params = useParams();
 
-  const currentUser = useSelector((state) => state.currentUser);
+  const currentUser = useSelector((state) => state.auth.currentUser);
   const [formData, setFormData] = useState({
     userId: currentUser._id,
     restaurantName: "",
