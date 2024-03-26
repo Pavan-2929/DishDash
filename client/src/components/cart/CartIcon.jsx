@@ -1,17 +1,16 @@
-// CartIcon.js
 import React, { useState } from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import Cart from "./Cart";
 import CartAddress from "./CartAddress";
 import { loadStripe } from "@stripe/stripe-js";
 import { useSelector } from "react-redux";
-import axios from 'axios'
+import axios from "axios";
 
 const CartIcon = () => {
   const [showModal, setShowModal] = useState(false);
   const [currentStep, setCurrentStep] = useState("cart");
-    const cart = useSelector((state) => state.cart.cart);
-console.log(cart);
+  const cart = useSelector((state) => state.cart.cart);
+  console.log(cart);
 
   const handleProceed = () => {
     if (currentStep === "cart") {
@@ -37,27 +36,35 @@ console.log(cart);
 
   const makePayment = async () => {
     const stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLISH_KEY);
- 
-    const response = await axios.post("http://localhost:3000/api/create-checkout-session", cart)
 
-    const session = response.data
+    const response = await axios.post(
+      "http://localhost:3000/api/create-checkout-session",
+      cart
+    );
+
+    const session = response.data;
 
     const result = stripe.redirectToCheckout({
-      sessionId: session.id
-    })
+      sessionId: session.id,
+    });
 
-    if(result.error){
+    if (result.error) {
       console.log(result.error);
     }
   };
 
   return (
-    <div className="fixed top-4 right-4 z-50">
-      <div className="flex items-center justify-center w-12 h-12 bg-gray-100 rounded-full border-2 border-gray-300 shadow-md hover:cursor-pointer">
-        <FaShoppingCart
-          className="text-gray-700 text-2xl"
-          onClick={toggleModal}
-        />
+    <div className="relative">
+      <div className="fixed top-4 right-4 z-50">
+        <div className="flex items-center justify-center w-12 h-12 bg-gray-100 rounded-full border-2 border-gray-300 shadow-md hover:bg-gray-200 transition-colors duration-300 cursor-pointer">
+          <FaShoppingCart
+            className="text-gray-700 text-2xl group-hover:text-gray-900 transition-colors duration-300"
+            onClick={toggleModal}
+          />
+        </div>
+        <span className="absolute -top-1 -right-1 bg-yellow-500 text-white rounded-full h-5 w-5 flex items-center justify-center text-xs">
+          {cart.length}
+        </span>
       </div>
       {showModal && (
         <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">

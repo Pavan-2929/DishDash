@@ -10,7 +10,7 @@ const Restaurant = () => {
   const fetchRestaurants = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:3000/api/restaurant/get",
+        "http://localhost:3000/api/restaurant/owner/get",
         { withCredentials: true }
       );
 

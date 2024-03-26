@@ -11,7 +11,7 @@ import {
 const router = express.Router();
 
 router.post("/create", createRestaurant);
-router.get("/get", verifyToken, getRestaurantsbyUserID);
+router.get("/owner/get", verifyToken, getRestaurantsbyUserID);
 router.get("/get/:id", getRestaurantsbyRestaurantID);
 router.put("/update/:id", updateRestaurant);
 router.get("/datas", getAllRestaurants);

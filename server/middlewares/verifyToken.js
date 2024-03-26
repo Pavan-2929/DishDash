@@ -4,11 +4,18 @@ import User from "../models/user.model.js";
 
 const verifyToken = async (req, res, next) => {
   const cookies = req.headers.cookie;
+
+  const cookiesArray = cookies.split(";");
   if (!cookies) {
     return next(errorHandler(401, "Cookie not found"));
   }
 
-  const token = cookies.split("=")[1];
+  const tokenCookie = cookiesArray.find((cookie) =>
+    cookie.trim().startsWith("token=")
+  );
+  const token = tokenCookie.split("=")[1];
+
+  console.log(token);
   if (!token) {
     return next(errorHandler(401, "Token not found"));
   }
