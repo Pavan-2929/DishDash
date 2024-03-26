@@ -3,10 +3,15 @@ import React, { useState } from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import Cart from "./Cart";
 import CartAddress from "./CartAddress";
+import { loadStripe } from "@stripe/stripe-js";
+import { useSelector } from "react-redux";
+import axios from 'axios'
 
 const CartIcon = () => {
   const [showModal, setShowModal] = useState(false);
   const [currentStep, setCurrentStep] = useState("cart");
+    const cart = useSelector((state) => state.cart.cart);
+console.log(cart);
 
   const handleProceed = () => {
     if (currentStep === "cart") {
@@ -28,6 +33,22 @@ const CartIcon = () => {
 
   const toggleModal = () => {
     setShowModal(!showModal);
+  };
+
+  const makePayment = async () => {
+    const stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLISH_KEY);
+ 
+    const response = await axios.post("http://localhost:3000/api/create-checkout-session", cart)
+
+    const session = response.data
+
+    const result = stripe.redirectToCheckout({
+      sessionId: session.id
+    })
+
+    if(result.error){
+      console.log(result.error);
+    }
   };
 
   return (
@@ -75,7 +96,7 @@ const CartIcon = () => {
                 </button>
               ) : (
                 <button
-                  onClick={handleProceed}
+                  onClick={makePayment}
                   type="submit"
                   className="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-md text-lg transition duration-300 mr-2"
                 >
