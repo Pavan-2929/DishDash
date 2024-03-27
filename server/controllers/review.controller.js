@@ -20,3 +20,15 @@ export const createReview = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getReviewByRestaurantId = async (req, res, next) => {
+  try {
+    const restaurantId = req.params.id;
+
+    const reviews = await Review.find({ restaurantId });
+    console.log(reviews);
+    res.status(200).json(reviews);
+  } catch (error) {
+    console.log(error);
+  }
+};
