@@ -308,9 +308,7 @@ const RestaurantForm = () => {
                   <p className="text-2xl text-red-500">please add dished</p>
                 ) : (
                   formData.menuItems.map((menuItem, index) => (
-
-                      <MenuCard menuItem={menuItem} index={index}/>
-
+                    <MenuCard menuItem={menuItem} index={index} />
                   ))
                 )}
               </div>

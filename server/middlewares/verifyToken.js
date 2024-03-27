@@ -4,6 +4,7 @@ import User from "../models/user.model.js";
 
 const verifyToken = async (req, res, next) => {
   const cookies = req.headers.cookie;
+  console.log(req.headers);
 
   const cookiesArray = cookies.split(";");
   if (!cookies) {

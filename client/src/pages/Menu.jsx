@@ -73,15 +73,13 @@ const Menu = () => {
           <div className="mb-6 text-center font-bold text-3xl">
             <p>Explore MenuItems</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6 p-8">
             {restaurants &&
-              restaurants.map((restaurant) => (
-                <div key={restaurant._id}>
-                  {restaurant.menuItems.map((menuItem, index) => (
-                    <MenuCart key={index} menuItem={menuItem} />
-                  ))}
-                </div>
-              ))}
+              restaurants.map((restaurant) =>
+                restaurant.menuItems.map((menuItem, index) => (
+                  <MenuCart menuItem={menuItem} key={index} />
+                ))
+              )}
           </div>
         </div>
       )}

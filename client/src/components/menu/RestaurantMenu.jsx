@@ -4,6 +4,7 @@ import { FiClock, FiDollarSign, FiMapPin } from "react-icons/fi";
 import { useParams } from "react-router-dom";
 import MenuCard from "../cards/MenuCard";
 import MenuCart from "../cards/MenuCart";
+import Review from "../review/Review";
 
 const RestaurantMenu = () => {
   const params = useParams();
@@ -82,13 +83,17 @@ const RestaurantMenu = () => {
             </div>
           </div>
 
-          <div className="mt-8">
+          <div className="mt-8 border-b-2 border-gray-500 pb-14">
             <h2 className="text-2xl font-semibold mb-4">Explore our Dishes</h2>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               {restaurant.menuItems.map((menuItem, index) => (
                 <MenuCart key={index} menuItem={menuItem} />
               ))}
             </div>
+          </div>
+
+          <div className="mt-8">
+            <Review/>
           </div>
         </div>
       )}

@@ -27,7 +27,7 @@ export const getRestaurantsbyUserID = async (req, res, next) => {
 export const getRestaurantsbyRestaurantID = async (req, res, next) => {
   try {
     const id = req.params.id;
-console.log(id);
+
     const reqrestaurant = await Restaurant.findById(id);
 
 
@@ -59,7 +59,7 @@ export const updateRestaurant = async (req, res, next) => {
 export const getAllRestaurants = async (req, res, next) => {
   try {
     const restaurants = await Restaurant.find();
-    console.log(restaurants);
+
     res.status(200).json(restaurants);
   } catch (error) {
     next(error);

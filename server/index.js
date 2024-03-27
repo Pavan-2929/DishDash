@@ -6,13 +6,13 @@ import authRouter from "./routes/auth.routes.js";
 import userRouter from "./routes/user.routes.js";
 import restaurantRouter from "./routes/restaurant.routes.js";
 import Stripe from "stripe";
+import reviewRouter from "./routes/review.routes.js";
 
 const app = express();
 app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
 app.use(express.json());
 dotenv.config();
 
-console.log("Stripe API Key:", process.env.STRIPE_API_KEY);
 const stripe = new Stripe(process.env.STRIPE_API_KEY);
 
 const PORT = 3000 || process.env.PORT;
@@ -35,6 +35,7 @@ app.get("/", (req, res) => {
 app.use("/api/auth", authRouter);
 app.use("/api", userRouter);
 app.use("/api/restaurant", restaurantRouter);
+app.use("/api/review", reviewRouter)
 
 app.post("/api/create-checkout-session", async (req, res, next) => {
   const cart = req.body;
