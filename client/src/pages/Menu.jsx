@@ -77,7 +77,7 @@ const Menu = () => {
             {restaurants &&
               restaurants.map((restaurant) =>
                 restaurant.menuItems.map((menuItem, index) => (
-                  <MenuCart menuItem={menuItem} key={index} />
+                  <MenuCart menuItem={menuItem} key={index} restaurantId={restaurant._id}/>
                 ))
               )}
           </div>

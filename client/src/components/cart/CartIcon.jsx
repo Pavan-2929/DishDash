@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import Cart from "./Cart";
 import CartAddress from "./CartAddress";
@@ -51,6 +51,8 @@ const CartIcon = () => {
     if (result.error) {
       console.log(result.error);
     }
+
+    setOrderTracker(true);
   };
 
   return (

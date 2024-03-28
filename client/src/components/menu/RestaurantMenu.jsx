@@ -87,7 +87,7 @@ const RestaurantMenu = () => {
             <h2 className="text-2xl font-semibold mb-4">Explore our Dishes</h2>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               {restaurant.menuItems.map((menuItem, index) => (
-                <MenuCart key={index} menuItem={menuItem} />
+                <MenuCart key={index} menuItem={menuItem} restaurantId={restaurant._id}/>
               ))}
             </div>
           </div>

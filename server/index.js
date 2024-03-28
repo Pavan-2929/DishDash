@@ -7,6 +7,7 @@ import userRouter from "./routes/user.routes.js";
 import restaurantRouter from "./routes/restaurant.routes.js";
 import Stripe from "stripe";
 import reviewRouter from "./routes/review.routes.js";
+import orderRouter from "./routes/order.routes.js";
 
 const app = express();
 app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
@@ -36,6 +37,7 @@ app.use("/api/auth", authRouter);
 app.use("/api", userRouter);
 app.use("/api/restaurant", restaurantRouter);
 app.use("/api/review", reviewRouter)
+app.use("/api/order", orderRouter);
 
 app.post("/api/create-checkout-session", async (req, res, next) => {
   const cart = req.body;

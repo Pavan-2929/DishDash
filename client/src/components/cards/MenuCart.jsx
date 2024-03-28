@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../redux/cart/cartSlice";
 import { useSelector } from "react-redux";
-import { FaCartPlus } from "react-icons/fa"; // Importing React Icons
+import { FaCartPlus } from "react-icons/fa";
 
-const MenuCart = ({ menuItem, index }) => {
+const MenuCart = ({ menuItem, index, restaurantId }) => {
   const [nextId, setNextId] = useState(1);
 
   const cartData = {
@@ -14,6 +14,7 @@ const MenuCart = ({ menuItem, index }) => {
     description: menuItem.description,
     price: menuItem.price,
     quantity: 1,
+    restaurantId,
   };
 
   const dispatch = useDispatch();

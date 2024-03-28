@@ -4,7 +4,6 @@ import User from "../models/user.model.js";
 
 const verifyToken = async (req, res, next) => {
   const cookies = req.headers.cookie;
-  console.log(req.headers);
 
   const cookiesArray = cookies.split(";");
   if (!cookies) {
@@ -16,7 +15,6 @@ const verifyToken = async (req, res, next) => {
   );
   const token = tokenCookie.split("=")[1];
 
-  console.log(token);
   if (!token) {
     return next(errorHandler(401, "Token not found"));
   }

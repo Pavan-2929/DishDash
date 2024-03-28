@@ -1,10 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { FiCheckCircle } from "react-icons/fi";
 import { NavLink } from "react-router-dom";
+import axios from "axios";
 
 const Success = () => {
   const cart = useSelector((state) => state.cart.cart);
+
+  useEffect(() => {
+    const orderHandler = async () => {
+      try {
+        const response = await axios.post(
+          "http://localhost:3000/api/order/create",
+          cart,
+          { withCredentials: true }
+        );
+
+        console.log(response);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    orderHandler();
+  }, []);
 
   return (
     <div className="container mx-auto mt-10">
