@@ -44,6 +44,11 @@ function Header() {
                 Menu
               </NavLink>
             </li>
+            <li className="md:ml-5 xl:mx-5 hover:text-amber-500">
+              <NavLink to="/orders" onClick={closeMenu}>
+                Orders
+              </NavLink>
+            </li>
             {isLoggedIn ? (
               <>
                 <li className="md:ml-5 xl:mx-5 hover:text-amber-500">

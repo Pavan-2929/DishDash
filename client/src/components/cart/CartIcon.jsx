@@ -26,7 +26,7 @@ const CartIcon = () => {
     if (currentStep === "cart") {
       return "20%";
     } else if (currentStep === "address") {
-      return "50%";
+      return "70%";
     }
   };
 

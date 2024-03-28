@@ -10,6 +10,8 @@ import RestaurantForm from "./components/Profile/RestaurantForm";
 import Menu from "./pages/Menu";
 import RestaurantMenu from "./components/menu/RestaurantMenu";
 import CartIcon from "./components/cart/CartIcon";
+import Success from "./components/cart/Success";
+import Failure from "./components/cart/Failure";
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/menu" element={<Menu />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/payment-success" element={<Success />} />
+          <Route path="/payment-failure" element={<Failure />} />
           <Route path="/restaurant/:id" element={<RestaurantMenu />} />
           <Route path="/restaurant/manage/:id" element={<SingleRestaurant />} />
           <Route path="/restaurant/create" element={<RestaurantForm />} />
