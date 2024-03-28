@@ -7,24 +7,6 @@ import axios from "axios";
 const Success = () => {
   const cart = useSelector((state) => state.cart.cart);
 
-  useEffect(() => {
-    const orderHandler = async () => {
-      try {
-        const response = await axios.post(
-          "http://localhost:3000/api/order/create",
-          cart,
-          { withCredentials: true }
-        );
-
-        console.log(response);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    orderHandler();
-  }, []);
-
   return (
     <div className="container mx-auto mt-10">
       <h1 className="text-center mb-8 text-3xl">

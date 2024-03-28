@@ -1,0 +1,48 @@
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+
+const OrderCard = ({ orderItem }) => {
+  const [restaurantData, setRestaurantData] = useState(null);
+
+  const fetchRestaurantData = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3000/api/restaurant/get/${orderItem.restaurantId}`
+      );
+      setRestaurantData(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchRestaurantData();
+  }, []);
+
+  return (
+    <div className="bg-white border border-gray-300 rounded-lg shadow-md p-4">
+      <div className="flex items-center mb-4">
+        <img
+          src={orderItem.imageUrl}
+          alt=""
+          className="w-16 h-16 mr-4 rounded-md object-cover"
+        />
+        <div>
+          <h3 className="text-lg font-semibold">{orderItem.name}</h3>
+          <p className="text-gray-600">${orderItem.price}</p>
+          <p className="text-gray-600">Quantity: {orderItem.quantity}</p>
+        </div>
+      </div>
+      {restaurantData && (
+        <div className="text-sm text-gray-600">
+          <p>{restaurantData.restaurantName}</p>
+          <p>
+            {restaurantData.city}, {restaurantData.state}
+          </p>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default OrderCard;

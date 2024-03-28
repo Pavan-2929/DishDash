@@ -37,6 +37,14 @@ const CartIcon = () => {
   const makePayment = async () => {
     const stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLISH_KEY);
 
+    const response1 = await axios.post(
+      "http://localhost:3000/api/order/create",
+      cart,
+      { withCredentials: true }
+    );
+
+    console.log(response1);
+
     const response = await axios.post(
       "http://localhost:3000/api/create-checkout-session",
       cart
