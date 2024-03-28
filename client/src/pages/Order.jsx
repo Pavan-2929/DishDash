@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import OrderCard from "../components/cards/OrderCard";
 import moment from "moment";
+import { FaMoneyBillAlt, FaCreditCard } from "react-icons/fa";
 
 const Order = () => {
   const [orders, setOrders] = useState([]);
@@ -37,9 +38,24 @@ const Order = () => {
                   <OrderCard key={index} orderItem={orderItem} />
                 ))}
               </div>
-              <div className="text-sm text-gray-600 mt-2">
-                Order placed:{" "}
-                {moment(order.createdAt).format("MMMM Do YYYY, h:mm:ss a")}
+              <div className="flex justify-between">
+                <div className="text-sm text-gray-600 mt-2">
+                  Order placed:{" "}
+                  {moment(order.createdAt).format("MMMM Do YYYY, h:mm:ss a")}
+                </div>
+                <div className="flex items-center mt-2 text-gray-800">
+                  {order.paymentMethod === "cash" ? (
+                    <div className="flex items-center mr-4">
+                      <FaMoneyBillAlt className="mr-2" />
+                      <span>Cash</span>
+                    </div>
+                  ) : (
+                    <div className="flex items-center mr-4">
+                      <FaCreditCard className="mr-2" />
+                      <span>Online</span>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           </div>

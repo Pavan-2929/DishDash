@@ -5,12 +5,15 @@ import CartAddress from "./CartAddress";
 import { loadStripe } from "@stripe/stripe-js";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import {useNavigate} from 'react-router-dom'
 
 const CartIcon = () => {
   const [showModal, setShowModal] = useState(false);
   const [currentStep, setCurrentStep] = useState("cart");
   const cart = useSelector((state) => state.cart.cart);
-  console.log(cart);
+  const [paymentMethod, setPaymentMethod] = useState("cash");
+  
+  const navigate = useNavigate();
 
   const handleProceed = () => {
     if (currentStep === "cart") {
@@ -34,12 +37,26 @@ const CartIcon = () => {
     setShowModal(!showModal);
   };
 
+  const checkPayementMethod = async () => {
+    if(paymentMethod === "cash") {
+      toggleModal()
+          const response1 = await axios.post(
+      "http://localhost:3000/api/order/create",
+      {cart, paymentMethod},
+      { withCredentials: true }
+    );
+      navigate("/payment-success")
+    }else{
+      makePayment()
+    }
+  }
+
   const makePayment = async () => {
     const stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLISH_KEY);
 
     const response1 = await axios.post(
       "http://localhost:3000/api/order/create",
-      cart,
+      {cart, paymentMethod},
       { withCredentials: true }
     );
 
@@ -59,10 +76,9 @@ const CartIcon = () => {
     if (result.error) {
       console.log(result.error);
     }
-
-    setOrderTracker(true);
   };
 
+  console.log(paymentMethod);
   return (
     <div className="relative">
       <div className="fixed top-4 right-4 z-50">
@@ -102,6 +118,33 @@ const CartIcon = () => {
             </div>
             {currentStep === "cart" && <Cart />}
             {currentStep === "address" && <CartAddress />}
+            <div className="mt-4">
+              <h3 className="text-lg font-semibold mb-2">Payment Method</h3>
+              <div>
+                <input
+                  type="radio"
+                  id="cash"
+                  name="paymentMethod"
+                  value="cash"
+                  checked={paymentMethod === "cash"}
+                  onChange={() => setPaymentMethod("cash")}
+                  className="mr-2"
+                />
+                <label htmlFor="cash" className="mr-4">
+                  Cash on Delivery
+                </label>
+                <input
+                  type="radio"
+                  id="online"
+                  name="paymentMethod"
+                  value="online"
+                  checked={paymentMethod === "online"}
+                  onChange={() => setPaymentMethod("online")}
+                  className="mr-2"
+                />
+                <label htmlFor="online">Online Payment</label>
+              </div>
+            </div>
             <div className="flex justify-end mt-4">
               {currentStep === "cart" ? (
                 <button
@@ -113,7 +156,7 @@ const CartIcon = () => {
                 </button>
               ) : (
                 <button
-                  onClick={makePayment}
+                  onClick={checkPayementMethod}
                   type="submit"
                   className="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-md text-lg transition duration-300 mr-2"
                 >

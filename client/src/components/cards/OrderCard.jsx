@@ -34,11 +34,21 @@ const OrderCard = ({ orderItem }) => {
         </div>
       </div>
       {restaurantData && (
-        <div className="text-sm text-gray-600">
-          <p>{restaurantData.restaurantName}</p>
-          <p>
-            {restaurantData.city}, {restaurantData.state}
-          </p>
+        <div className="text-sm text-gray-600 flex justify-between items-center">
+          <div>
+            <p>{restaurantData.restaurantName}</p>
+            <p>
+              {restaurantData.city}, {restaurantData.state}
+            </p>
+          </div>
+          <div>
+            <a
+              href={`/restaurant/${restaurantData._id}`}
+              className="text-blue-500 font-semibold hover:underline"
+            >
+              Visit Restaurant
+            </a>
+          </div>
         </div>
       )}
     </div>

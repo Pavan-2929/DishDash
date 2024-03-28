@@ -18,7 +18,6 @@ const MenuCart = ({ menuItem, index, restaurantId }) => {
   };
 
   const dispatch = useDispatch();
-  const cart = useSelector((state) => state.cart);
   const handleCart = () => {
     dispatch(addToCart(cartData));
     setNextId(nextId + 1);

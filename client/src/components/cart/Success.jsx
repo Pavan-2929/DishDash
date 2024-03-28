@@ -2,10 +2,16 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { FiCheckCircle } from "react-icons/fi";
 import { NavLink } from "react-router-dom";
-import axios from "axios";
+import { useDispatch } from "react-redux";
+import { removeAllItems } from "../../redux/cart/cartSlice";
 
 const Success = () => {
+  const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.cart);
+
+  useEffect(() => {
+    dispatch(removeAllItems());
+  }, []);
 
   return (
     <div className="container mx-auto mt-10">
