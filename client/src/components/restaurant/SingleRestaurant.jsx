@@ -12,6 +12,7 @@ import { app } from "../../firebase";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import MenuCard from "../cards/MenuCard";
+import RestaurantOrders from "../cards/RestarantOrder";
 
 const SingleRestaurant = () => {
   const params = useParams();
@@ -35,6 +36,7 @@ const SingleRestaurant = () => {
   const [image, setImage] = useState(undefined);
   const [imagePercentage, setImagePercentage] = useState(0);
   const [imageError, setImageError] = useState(false);
+  const [orders, setOrders] = useState("");
 
   const handleChange = (e) => {
     setFormData({
@@ -136,7 +138,22 @@ const SingleRestaurant = () => {
     }
   }, [image]);
 
-  console.log(formData);
+  const fetchOrderByRestaurntId = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3000/api/order/get/restaurantId`
+      );
+
+      console.log(response);
+      setOrders(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchOrderByRestaurntId();
+  }, []);
 
   return (
     <div>
@@ -335,6 +352,7 @@ const SingleRestaurant = () => {
                 ) : (
                   formData.menuItems.map((menuItem, index) => (
                     <MenuCard
+                      key={index}
                       menuItem={menuItem}
                       index={index}
                       removeMenuItem={removeMenuItem}
@@ -354,6 +372,16 @@ const SingleRestaurant = () => {
             </button>
           </div>
         </form>
+      </div>
+
+      <div>
+        <p className="text-center font-semibold text-3xl mt-12 border-t-2 border-gray-500 pt-6">
+          Restaurant Orders
+        </p>
+        {orders &&
+          orders.map((order) => (
+            <RestaurantOrders order={order} key={order._id} />
+          ))}
       </div>
     </div>
   );

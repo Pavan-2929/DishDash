@@ -29,3 +29,15 @@ export const getOrdersbyUserId = async (req, res, next) => {
     console.log(error);
   }
 };
+
+export const getOrdersbyRestaurantId = async (req, res, next) => {
+  try {
+    const restaurantId = req.params.id;
+
+    const orderData = await Order.find({ restaurantId });
+
+    res.status(200).json(orderData);
+  } catch (error) {
+    next(error);
+  }
+}
