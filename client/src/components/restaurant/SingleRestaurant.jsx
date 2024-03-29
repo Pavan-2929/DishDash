@@ -13,9 +13,11 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import MenuCard from "../cards/MenuCard";
 import RestaurantOrders from "../cards/RestarantOrder";
+import { useNavigate } from "react-router-dom";
 
 const SingleRestaurant = () => {
   const params = useParams();
+  const navigate = useNavigate()
 
   const currentUser = useSelector((state) => state.auth.currentUser);
   const [formData, setFormData] = useState({
@@ -52,7 +54,7 @@ const SingleRestaurant = () => {
         `http://localhost:3000/api/restaurant/update/${params.id}`,
         formData
       );
-
+        navigate("/")
       console.log(response);
     } catch (error) {
       console.log(error);
@@ -346,7 +348,7 @@ const SingleRestaurant = () => {
               <div className="text-2xl mb-6 ">
                 <p>Your dishes</p>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-3 ">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {formData.menuItems.length === 0 ? (
                   <p className="text-2xl text-red-500">please add dished</p>
                 ) : (

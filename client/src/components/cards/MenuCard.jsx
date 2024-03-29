@@ -6,16 +6,16 @@ const MenuCard = ({ menuItem, index, removeMenuItem }) => {
       key={index}
       className="border border-gray-400 rounded-md bg-gray-300 overflow-hidden shadow-sm p-2"
     >
-      <div className="flex pl-3">
+      <div className="flex justify-center pl-3">
         <img
           src={menuItem.imageUrl}
           alt={menuItem.name}
-          className="w-32 h-32 object-cover"
+          className="w-32 h-32 object-cover rounded-md"
         />
       </div>
       <div className="p-3">
         <p className="text-base font-semibold">name: {menuItem.name}</p>
-        <p className="text-gray-600 text-sm mb-1">
+        <p className="text-gray-600 text-sm mb-1 line-clamp-2">
           desciption: {menuItem.description}
         </p>
         <p className="text-green-600 font-semibold text-sm">

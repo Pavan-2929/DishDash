@@ -5,9 +5,10 @@ import CartAddress from "./CartAddress";
 import { loadStripe } from "@stripe/stripe-js";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const CartIcon = () => {
+  const currentUser = useSelector((state) => state.auth.currentUser);
   const [showModal, setShowModal] = useState(false);
   const [currentStep, setCurrentStep] = useState("cart");
   const cart = useSelector((state) => state.cart.cart);
@@ -40,7 +41,7 @@ const CartIcon = () => {
   const checkPayementMethod = async () => {
     if (paymentMethod === "cash") {
       toggleModal();
-      const response1 = await axios.post(
+      await axios.post(
         "http://localhost:3000/api/order/create",
         { cart, paymentMethod },
         { withCredentials: true }
@@ -145,33 +146,52 @@ const CartIcon = () => {
                 <label htmlFor="online">Online Payment</label>
               </div>
             </div>
-            <div className="flex justify-end mt-4">
-              {currentStep === "cart" ? (
+            {currentUser && currentUser.address ? (
+              <div className="flex justify-end mt-4">
+                {currentStep === "cart" ? (
+                  <button
+                    onClick={handleProceed}
+                    type="submit"
+                    className="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-md text-lg transition duration-300 mr-2"
+                  >
+                    Proceed to Address
+                  </button>
+                ) : (
+                  <button
+                    onClick={checkPayementMethod}
+                    type="submit"
+                    className="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-md text-lg transition duration-300 mr-2"
+                  >
+                    Payment
+                  </button>
+                )}{" "}
                 <button
-                  onClick={handleProceed}
-                  type="submit"
-                  className="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-md text-lg transition duration-300 mr-2"
+                  type="button"
+                  onClick={toggleModal}
+                  className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-md text-lg transition duration-300"
                 >
-                  Proceed to Address
+                  Close
                 </button>
-              ) : (
-                <button
-                  onClick={checkPayementMethod}
-                  type="submit"
-                  className="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-md text-lg transition duration-300 mr-2"
-                >
-                  Proceed to Payment
-                </button>
-              )}
-
-              <button
-                type="button"
-                onClick={toggleModal}
-                className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-md text-lg transition duration-300"
-              >
-                Close
-              </button>
-            </div>
+              </div>
+            ) : (
+              <div className="flex flex-wrap gap-4 items-center mt-5 text-2xl">
+                <p className="text-red-500">
+                  Please add Your address at profile page
+                </p>
+                <NavLink onClick={toggleModal} className="underline text-blue-500" to={"/profile"}>
+                  Visit
+                </NavLink>{" "}
+                <div>
+                  <button
+                    type="button"
+                    onClick={toggleModal}
+                    className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-md text-lg transition duration-300"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       )}

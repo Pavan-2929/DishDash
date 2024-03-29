@@ -102,7 +102,7 @@ const RestaurantOrders = ({ order }) => {
           </div>
         ))}
       </div>
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center flex-wrap">
         <div>
           {user && (
             <div>
@@ -135,7 +135,7 @@ const RestaurantOrders = ({ order }) => {
         <div>
           {restaurant && (
             <div>
-              <div className="text-gary-600 flex items-center mb-6">
+              <div className="text-gary-600 flex items-center mt-4 md:mb-6">
                 <FaStore className="mr-2" />
                 Restaurant Name: {restaurant.restaurantName}
               </div>

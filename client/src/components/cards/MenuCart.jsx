@@ -37,7 +37,7 @@ const MenuCart = ({ menuItem, index, restaurantId }) => {
       </div>
       <div className="p-3 text-center">
         <p className="text-base font-semibold">Name: {menuItem.name}</p>
-        <p className="text-gray-600 text-sm mb-1">
+        <p className="text-gray-600 text-sm mb-1 line-clamp-2">
           Description: {menuItem.description}
         </p>
         <p className="text-green-600 font-semibold text-sm">

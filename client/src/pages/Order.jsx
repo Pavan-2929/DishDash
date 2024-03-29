@@ -21,54 +21,62 @@ const Order = () => {
 
   useEffect(() => {
     fetchOrders();
-
-    const intervalId = setInterval(fetchOrders, 5000);
-
-    return () => clearInterval(intervalId);
   }, []);
 
   return (
     <div className="container mx-auto mt-10 max-w-6xl">
-      <h1 className="text-3xl font-semibold mb-6">Your Orders</h1>
+      <h1 className="text-3xl font-semibold mb-6 text-center">Your Orders</h1>
       <div>
-        {orders.map((order) => (
-          <div key={order._id} className="mb-8">
-            <div className="bg-gray-100 rounded-lg shadow-md p-4 mb-4 border border-gray-500">
-              <div className="flex justify-between">
-                <h2 className="text-lg font-semibold mb-2">
-                  Order ID: {order._id}
-                </h2>
-                <p>Order-Status: {order.orderStatus}</p>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {order.orderItems.map((orderItem, index) => (
-                  <OrderCard key={index} orderItem={orderItem} />
-                ))}
-              </div>
-              <div className="flex  gap-8">
-                <div className="text-sm text-gray-600 mt-2">
-                  <p>
-                    Order booked at:{" "}
-                    {moment(order.createdAt).format("MMMM Do YYYY, h:mm:ss a")}
-                  </p>
-                </div>
-                <div className="flex items-center mt-2 text-gray-800">
-                  {order.paymentMethod === "cash" ? (
-                    <div className="flex items-center mr-4">
-                      <FaMoneyBillAlt className="mr-2" />
-                      <span>Cash</span>
-                    </div>
-                  ) : (
-                    <div className="flex items-center mr-4">
-                      <FaCreditCard className="mr-2" />
-                      <span>Online</span>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
+        {orders && orders.length === 0 ? (
+          <div>
+            <p className="text-center foent-bold text-3xl text-red-500">
+              No order currently
+            </p>
           </div>
-        ))}
+        ) : (
+          <div>
+            {orders.map((order) => (
+              <div key={order._id} className="mb-8">
+                <div className="bg-gray-100 rounded-lg shadow-md p-4 mb-4 border border-gray-500">
+                  <div className="flex justify-between flex-wrap">
+                    <h2 className="text-lg font-semibold mb-2">
+                      Order ID: {order._id}
+                    </h2>
+                    <p>Order-Status: {order.orderStatus}</p>
+                  </div>
+                  <div className="mt-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                    {order.orderItems.map((orderItem, index) => (
+                      <OrderCard key={index} orderItem={orderItem} />
+                    ))}
+                  </div>
+                  <div className="flex  gap-8">
+                    <div className="text-sm text-gray-600 mt-2">
+                      <p>
+                        Order booked at:{" "}
+                        {moment(order.createdAt).format(
+                          "MMMM Do YYYY, h:mm:ss a"
+                        )}
+                      </p>
+                    </div>
+                    <div className="flex items-center mt-2 text-gray-800">
+                      {order.paymentMethod === "cash" ? (
+                        <div className="flex items-center mr-4">
+                          <FaMoneyBillAlt className="mr-2" />
+                          <span>Cash</span>
+                        </div>
+                      ) : (
+                        <div className="flex items-center mr-4">
+                          <FaCreditCard className="mr-2" />
+                          <span>Online</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

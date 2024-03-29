@@ -16,14 +16,14 @@ const Success = () => {
   return (
     <div className="container mx-auto mt-10">
       <h1 className="text-center mb-8 text-3xl">
-        <NavLink to="/" className="text-blue-600 hover:underline">
-          Back to Home Page
+        <NavLink to="/orders" className="text-blue-600 hover:underline">
+          Check Your order status
         </NavLink>
       </h1>
       <div className="max-w-md mx-auto p-6 rounded-lg shadow-lg bg-gray-200">
         <div className="flex items-center justify-center text-green-500 mb-4">
           <FiCheckCircle className="text-5xl" />
-          <h2 className="text-lg font-semibold ml-2">Payment Successful!</h2>
+          <h2 className="text-lg font-semibold ml-2">Order Successful!</h2>
         </div>
         <div className="bg-gray-100 rounded-lg shadow-lg p-4">
           <h2 className="text-lg font-semibold mb-4">Shopping Cart</h2>

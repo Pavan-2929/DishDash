@@ -18,7 +18,7 @@ const Cart = () => {
       ) : (
         <div>
           {cart.map((item, index) => (
-            <div key={index} className="flex items-center border-b pb-4">
+            <div key={index} className="flex flex-wrap items-center border-b pb-4">
               <img
                 src={item.imageUrl}
                 alt={item.name}

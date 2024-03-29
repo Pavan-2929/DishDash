@@ -21,7 +21,7 @@ const OrderCard = ({ orderItem }) => {
 
   return (
     <div className="bg-white border border-gray-300 rounded-lg shadow-md p-4">
-      <div className="flex items-center mb-4">
+      <div className="flex items-center mb-4 flex-wrap">
         <img
           src={orderItem.imageUrl}
           alt=""
