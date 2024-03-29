@@ -45,7 +45,7 @@ const RestaurantOrders = ({ order }) => {
   }, []);
 
   const updateOrderStatus = async (e) => {
-    const newOrderStatus = e.target.value
+    const newOrderStatus = e.target.value;
     setOrderStatus(newOrderStatus);
 
     try {
@@ -143,11 +143,25 @@ const RestaurantOrders = ({ order }) => {
                 Order-Status:
                 <select
                   value={orderStatus}
+                  disabled={orderStatus === "delivered"}
                   onChange={updateOrderStatus}
-                  className="w-full p-2 bg-gray-300 text-black focus:bg-none rounded-md border-2 border-gray-500"
+                  className="w-full p-2 bg-gray-200 text-black focus:bg-none rounded-md border-2 border-gray-500"
                 >
-                  <option value="pending">Pending</option>
-                  <option value="processing">processing</option>
+                  <option
+                    value="pending"
+                    disabled={
+                      orderStatus === "processing" ||
+                      orderStatus === "delivered"
+                    }
+                  >
+                    Pending
+                  </option>
+                  <option
+                    value="processing"
+                    disabled={orderStatus === "delivered"}
+                  >
+                    processing
+                  </option>
                   <option value="delivered">delivered</option>
                 </select>
               </div>

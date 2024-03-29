@@ -11,8 +11,11 @@ import {
 import { app } from "../../firebase";
 import { useSelector } from "react-redux";
 import MenuCard from "../cards/MenuCard";
+import { useNavigate } from "react-router-dom";
 
 const RestaurantForm = () => {
+
+  const navigate = useNavigate();
   const currentUser = useSelector((state) => state.auth.currentUser);
   const [formData, setFormData] = useState({
     userId: currentUser._id,
@@ -48,7 +51,7 @@ const RestaurantForm = () => {
         "http://localhost:3000/api/restaurant/create",
         formData
       );
-
+    navigate("/");
       console.log(response);
     } catch (error) {
       console.log(error);
@@ -77,6 +80,7 @@ const RestaurantForm = () => {
     setMenuDescription("");
     setMenuImage("");
     setMenuPrice("");
+
   };
 
   const removeMenuItem = (index) => {
@@ -228,7 +232,6 @@ const RestaurantForm = () => {
                       value={menuName}
                       onChange={(e) => setMenuName(e.target.value)}
                       className="w-full p-2 bg-gray-300 focus:bg-none rounded-md border-2 border-gray-500"
-                      required
                     />
                   </div>
                   <div className="mb-4">
@@ -239,7 +242,6 @@ const RestaurantForm = () => {
                       value={menuPrice}
                       onChange={(e) => setMenuPrice(e.target.value)}
                       className="w-full p-2 bg-gray-300 focus:bg-none rounded-md border-2 border-gray-500"
-                      required
                     />
                   </div>
                 </div>
@@ -251,7 +253,6 @@ const RestaurantForm = () => {
                     value={menuDescription}
                     onChange={(e) => setMenuDescription(e.target.value)}
                     className="w-full p-2 bg-gray-300 focus:bg-none rounded-md border-2 border-gray-500"
-                    required
                   />
                 </div>
                 <div className="py-4">
@@ -308,7 +309,7 @@ const RestaurantForm = () => {
                   <p className="text-2xl text-red-500">please add dished</p>
                 ) : (
                   formData.menuItems.map((menuItem, index) => (
-                    <MenuCard menuItem={menuItem} index={index} />
+                    <MenuCard menuItem={menuItem} key={index} index={index} />
                   ))
                 )}
               </div>

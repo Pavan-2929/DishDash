@@ -3,7 +3,7 @@ import { FiClock, FiDollarSign, FiMapPin } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-const RestaurantCard = ({ restaurant, path }) => {
+const RestaurantCard = ({ restaurant, path, fetchRestaurants }) => {
   const [reviews, setReviews] = useState([]);
 
   const fetchReviews = async (e) => {
@@ -12,7 +12,6 @@ const RestaurantCard = ({ restaurant, path }) => {
         `http://localhost:3000/api/review/get/restaurant/${restaurant._id}`
       );
 
-      setReviews(response.data);
     } catch (error) {
       console.log(error);
     }
@@ -31,6 +30,19 @@ const RestaurantCard = ({ restaurant, path }) => {
     });
 
     return total / reviews.length;
+  };
+
+  const deleteRestaurant = async (id) => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:3000/api/restaurant/delete/${id}`,
+        { withCredentials: true }
+      );
+
+      fetchRestaurants()
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -64,13 +76,19 @@ const RestaurantCard = ({ restaurant, path }) => {
         <div className="flex items-center text-gray-600">
           <p>Average Rating: {countAverageReviews().toFixed(1)} / 5 ★</p>
         </div>
-        <div className="mt-6">
+        <div className="mt-6 flex gap-4">
           <Link
             to={`/restaurant/${path}`}
             className="bg-amber-500 text-white py-2 px-4 rounded-md hover:bg-amber-600"
           >
             Explore
           </Link>
+          <button
+            className="bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600"
+            onClick={() => deleteRestaurant(restaurant._id)}
+          >
+            Delete
+          </button>
         </div>
       </div>
     </div>

@@ -5,14 +5,14 @@ import CartAddress from "./CartAddress";
 import { loadStripe } from "@stripe/stripe-js";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 
 const CartIcon = () => {
   const [showModal, setShowModal] = useState(false);
   const [currentStep, setCurrentStep] = useState("cart");
   const cart = useSelector((state) => state.cart.cart);
   const [paymentMethod, setPaymentMethod] = useState("cash");
-  
+
   const navigate = useNavigate();
 
   const handleProceed = () => {
@@ -38,25 +38,25 @@ const CartIcon = () => {
   };
 
   const checkPayementMethod = async () => {
-    if(paymentMethod === "cash") {
-      toggleModal()
-          const response1 = await axios.post(
-      "http://localhost:3000/api/order/create",
-      {cart, paymentMethod},
-      { withCredentials: true }
-    );
-      navigate("/payment-success")
-    }else{
-      makePayment()
+    if (paymentMethod === "cash") {
+      toggleModal();
+      const response1 = await axios.post(
+        "http://localhost:3000/api/order/create",
+        { cart, paymentMethod },
+        { withCredentials: true }
+      );
+      navigate("/payment-success");
+    } else {
+      makePayment();
     }
-  }
+  };
 
   const makePayment = async () => {
     const stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLISH_KEY);
 
     const response1 = await axios.post(
       "http://localhost:3000/api/order/create",
-      {cart, paymentMethod},
+      { cart, paymentMethod },
       { withCredentials: true }
     );
 
@@ -81,7 +81,7 @@ const CartIcon = () => {
   console.log(paymentMethod);
   return (
     <div className="relative">
-      <div className="fixed top-4 right-4 z-50">
+      <div className="fixed top-24 md:top-4 right-4 z-50">
         <div className="flex items-center justify-center w-12 h-12 bg-gray-100 rounded-full border-2 border-gray-300 shadow-md hover:bg-gray-200 transition-colors duration-300 cursor-pointer">
           <FaShoppingCart
             className="text-gray-700 text-2xl group-hover:text-gray-900 transition-colors duration-300"

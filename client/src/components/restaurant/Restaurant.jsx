@@ -34,8 +34,11 @@ const Restaurant = () => {
         {restaurants &&
           restaurants.map((restaurant) => (
             <div key={restaurant._id}>
-
-            <RestaurantCard restaurant={restaurant} path={`manage/${restaurant._id}`}/>
+              <RestaurantCard
+                restaurant={restaurant}
+                path={`manage/${restaurant._id}`}
+                fetchRestaurants={fetchRestaurants}
+              />
             </div>
           ))}
         <Link to="/restaurant/create">

@@ -66,3 +66,16 @@ export const getAllRestaurants = async (req, res, next) => {
     console.log(error);
   }
 };
+
+export const deleteRestaurant = async (req, res, next) => {
+  try {
+
+    const restaurantId = req.params.id;
+
+    const restaurantData = await Restaurant.findByIdAndDelete(restaurantId);
+
+    res.status(200).json(restaurantData);
+  } catch (error) {
+    console.log(error);
+  }
+} 

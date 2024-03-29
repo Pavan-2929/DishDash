@@ -21,6 +21,10 @@ const Order = () => {
 
   useEffect(() => {
     fetchOrders();
+
+    const intervalId = setInterval(fetchOrders, 5000);
+
+    return () => clearInterval(intervalId);
   }, []);
 
   return (
