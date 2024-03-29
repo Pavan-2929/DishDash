@@ -34,10 +34,28 @@ export const getOrdersbyRestaurantId = async (req, res, next) => {
   try {
     const restaurantId = req.params.id;
 
-    const orderData = await Order.find({ restaurantId });
+    const orderData = await Order.find({
+      "orderItems.restaurantId": restaurantId,
+    });
 
     res.status(200).json(orderData);
   } catch (error) {
     next(error);
   }
-}
+};
+
+export const updateOrderStatus = async (req, res, next) => {
+  try {
+    const orderId = req.params.id;
+    console.log(req.body);
+    const updatedOrder = await Order.findByIdAndUpdate(
+      orderId,
+      { $set: req.body },
+      { new: true }
+    );
+
+    res.status(200).json(updatedOrder);
+  } catch (error) {
+    console.log(error);
+  }
+};

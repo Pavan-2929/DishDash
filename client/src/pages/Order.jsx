@@ -30,18 +30,23 @@ const Order = () => {
         {orders.map((order) => (
           <div key={order._id} className="mb-8">
             <div className="bg-gray-100 rounded-lg shadow-md p-4 mb-4 border border-gray-500">
-              <h2 className="text-lg font-semibold mb-2">
-                Order ID: {order._id}
-              </h2>
+              <div className="flex justify-between">
+                <h2 className="text-lg font-semibold mb-2">
+                  Order ID: {order._id}
+                </h2>
+                <p>Order-Status: {order.orderStatus}</p>
+              </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {order.orderItems.map((orderItem, index) => (
                   <OrderCard key={index} orderItem={orderItem} />
                 ))}
               </div>
-              <div className="flex justify-between">
+              <div className="flex  gap-8">
                 <div className="text-sm text-gray-600 mt-2">
-                  Order placed:{" "}
-                  {moment(order.createdAt).format("MMMM Do YYYY, h:mm:ss a")}
+                  <p>
+                    Order booked at:{" "}
+                    {moment(order.createdAt).format("MMMM Do YYYY, h:mm:ss a")}
+                  </p>
                 </div>
                 <div className="flex items-center mt-2 text-gray-800">
                   {order.paymentMethod === "cash" ? (

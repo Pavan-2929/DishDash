@@ -15,6 +15,7 @@ const RestaurantOrders = ({ order }) => {
   const params = useParams();
   const [user, setUser] = useState(null);
   const [restaurant, setRestaurant] = useState(null);
+  const [orderStatus, setOrderStatus] = useState(order.orderStatus);
 
   const fetchUserData = async () => {
     try {
@@ -43,6 +44,24 @@ const RestaurantOrders = ({ order }) => {
     fetchUserData();
   }, []);
 
+  const updateOrderStatus = async (e) => {
+    const newOrderStatus = e.target.value
+    setOrderStatus(newOrderStatus);
+
+    try {
+      const response = await axios.put(
+        `http://localhost:3000/api/order/update/orderstatus/${order._id}`,
+        { orderStatus: newOrderStatus }
+      );
+
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  console.log(orderStatus);
+
   return (
     <div className="p-4 border rounded-md shadow-md mb-8 bg-gray-200 mt-8 border-gray-500 max-w-7xl mx-auto">
       <div className="flex justify-between items-center mb-4">
@@ -52,14 +71,6 @@ const RestaurantOrders = ({ order }) => {
             {" "}
             {moment(order.createdAt).format("MMMM Do YYYY, h:mm:ss a")}
           </span>
-          {restaurant && (
-            <div>
-              <div className="text-gary-600 flex items-center ">
-                <FaStore className="mr-2" />
-                Restaurant Name: {restaurant.restaurantName}
-              </div>
-            </div>
-          )}
         </div>
       </div>
       <div className="mb-4 flex gap-6 border-b-2 pb-2 border-gray-500 flex-wrap">
@@ -91,33 +102,59 @@ const RestaurantOrders = ({ order }) => {
           </div>
         ))}
       </div>
-      {user && (
+      <div className="flex justify-between items-center">
         <div>
-          <h3 className="text-lg font-semibold mb-2 flex items-center">
-            <FaUser className="mr-2" /> User Details
-          </h3>
-          <div className="flex items-center space-x-4">
-            <img
-              src={user.profilePicture}
-              alt=""
-              className="w-20 h-20 object-cover rounded-full"
-            />
+          {user && (
             <div>
-              <p className="font-semibold text-gray-800">{user.username}</p>
-              <p className="text-gray-600">{user.email}</p>
-              <p className="text-gray-600 flex items-center">
-                <FaMapMarkerAlt className="mr-1" />
-                {user.address.street}, {user.address.city}, {user.address.state}
-                , {user.address.zipcode}
-              </p>
-              <p className="text-gray-600 flex items-center">
-                <FaPhone className="mr-1" />
-                {user.phoneNo}
-              </p>
+              <h3 className="text-lg font-semibold mb-2 flex items-center">
+                <FaUser className="mr-2" /> User Details
+              </h3>
+              <div className="flex items-center space-x-4">
+                <img
+                  src={user.profilePicture}
+                  alt=""
+                  className="w-20 h-20 object-cover rounded-full"
+                />
+                <div>
+                  <p className="font-semibold text-gray-800">{user.username}</p>
+                  <p className="text-gray-600">{user.email}</p>
+                  <p className="text-gray-600 flex items-center">
+                    <FaMapMarkerAlt className="mr-1" />
+                    {user.address.street}, {user.address.city},{" "}
+                    {user.address.state}, {user.address.zipcode}
+                  </p>
+                  <p className="text-gray-600 flex items-center">
+                    <FaPhone className="mr-1" />
+                    {user.phoneNo}
+                  </p>
+                </div>
+              </div>
             </div>
-          </div>
+          )}
         </div>
-      )}
+        <div>
+          {restaurant && (
+            <div>
+              <div className="text-gary-600 flex items-center mb-6">
+                <FaStore className="mr-2" />
+                Restaurant Name: {restaurant.restaurantName}
+              </div>
+              <div>
+                Order-Status:
+                <select
+                  value={orderStatus}
+                  onChange={updateOrderStatus}
+                  className="w-full p-2 bg-gray-300 text-black focus:bg-none rounded-md border-2 border-gray-500"
+                >
+                  <option value="pending">Pending</option>
+                  <option value="processing">processing</option>
+                  <option value="delivered">delivered</option>
+                </select>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 };

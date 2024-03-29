@@ -16,6 +16,12 @@ const orderSchema = new mongoose.Schema(
       enum: ["cash", "online"],
       required: true,
     },
+    orderStatus: {
+      type: String,
+      enum: ["pending", "processing", "delivered"],
+      default: "pending",
+      required: true,
+    }
   },
   { timestamps: true }
 );

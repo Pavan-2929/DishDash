@@ -141,7 +141,7 @@ const SingleRestaurant = () => {
   const fetchOrderByRestaurntId = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/order/get/restaurantId`
+        `http://localhost:3000/api/order/get/restaurantId/${params.id}`
       );
 
       console.log(response);
