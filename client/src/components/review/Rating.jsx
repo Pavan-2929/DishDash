@@ -3,12 +3,14 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ReviewCard from "../cards/ReviewCard";
 import toast from "react-hot-toast";
+import Loader from "../loader/Loader";
 
 const Rating = () => {
   const params = useParams();
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
-  const [reviews, setComments] = useState([]);
+  const [reviews, setReviews] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleRatingChange = (selectedRating) => {
     setRating(selectedRating);
@@ -16,13 +18,14 @@ const Rating = () => {
 
   const fetchReviews = async (e) => {
     try {
+      setIsLoading(true);
       const response = await axios.get(
         `https://dishdash-server.onrender.com/api/review/get/restaurant/${params.id}`
       );
-
-  
-      setComments(response.data);
+      setIsLoading(false);
+      setReviews(response.data);
     } catch (error) {
+      setIsLoading(false);
       console.log(error);
     }
   };
@@ -39,8 +42,10 @@ const Rating = () => {
         { comment, rating, restaurantId: params.id },
         { withCredentials: true }
       );
-
-    toast.success("Review created successfully")
+      fetchReviews();
+      toast.success("Review created successfully");
+      setRating(0);
+      setComment("")
     } catch (error) {
       console.log(error);
     }
@@ -49,6 +54,7 @@ const Rating = () => {
   return (
     <>
       <div className="flex justify-center mt-8 ">
+        {isLoading ? <Loader /> : ""}
         <div className="bg-gray-200 rounded-md border border-gray-500 w-full max-w-2xl">
           <div className="flex justify-center py-2 border-b-2 border-gray-400">
             {[1, 2, 3, 4, 5].map((star) => (

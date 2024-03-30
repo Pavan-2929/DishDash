@@ -7,20 +7,20 @@ import OrderLoader from "../components/loader/OrderLoader";
 
 const Order = () => {
   const [orders, setOrders] = useState([]);
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetchOrders = async () => {
     try {
-      setIsLoading(true)
+      setIsLoading(true);
       const response = await axios.get(
         "https://dishdash-server.onrender.com/api/order/get/userId",
         { withCredentials: true }
       );
       setOrders(response.data);
-      setIsLoading(false)
+      setIsLoading(false);
     } catch (error) {
       console.log(error);
-      setIsLoading(false)
+      setIsLoading(false);
     }
   };
 
@@ -32,15 +32,18 @@ const Order = () => {
     <div className="container mx-auto mt-10 max-w-6xl">
       <h1 className="text-3xl font-semibold mb-6 text-center">Your Orders</h1>
       <div>
+        {orders && orders.length === 0 ? (
+          <p className="text-center foent-bold text-3xl text-red-500">
+            No order currently
+          </p>
+        ) : (
+          ""
+        )}
         {orders && orders.length === 0 && isLoading ? (
           <div>
-            <p className="text-center foent-bold text-3xl text-red-500">
-              No order currently
-            </p>
             <div className="flex flex-col gap-6">
-
-            <OrderLoader/>
-            <OrderLoader/>
+              <OrderLoader />
+              <OrderLoader />
             </div>
           </div>
         ) : (

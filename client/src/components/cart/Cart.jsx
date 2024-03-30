@@ -18,7 +18,10 @@ const Cart = () => {
       ) : (
         <div>
           {cart.map((item, index) => (
-            <div key={index} className="flex flex-wrap items-center border-b pb-4">
+            <div
+              key={index}
+              className="flex flex-wrap items-center border-b pb-4"
+            >
               <img
                 src={item.imageUrl}
                 alt={item.name}
@@ -26,7 +29,7 @@ const Cart = () => {
               />
               <div className="flex flex-col flex-grow">
                 <p className="font-semibold">{item.name}</p>
-                <p className="text-gray-600">${item.price * item.quantity}</p>
+                <p className="text-gray-600">₹{item.price * item.quantity}</p>
                 <p className="text-gray-600">Quantity: {item.quantity}</p>
               </div>
               <div>
@@ -41,7 +44,6 @@ const Cart = () => {
           ))}
         </div>
       )}
-      
     </div>
   );
 };
