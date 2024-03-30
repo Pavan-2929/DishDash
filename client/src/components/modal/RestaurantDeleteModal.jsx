@@ -8,9 +8,12 @@ const RestaurantDeleteModal = ({ toggleModal, restaurantId }) => {
   const navigate = useNavigate();
   const handleSubmit = async () => {
     try {
-      await axios.delete(`http://localhost:3000/api/restaurant/delete/${restaurantId}`, {
-        withCredentials: true,
-      });
+      await axios.delete(
+        `https://dishdash-server.onrender.com/api/restaurant/delete/${restaurantId}`,
+        {
+          withCredentials: true,
+        }
+      );
 
       toast.success("restaurant deleted successfully");
       navigate("/restaurant");

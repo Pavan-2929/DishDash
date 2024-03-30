@@ -20,7 +20,7 @@ const RestaurantOrders = ({ order }) => {
   const fetchUserData = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/user/get/${order.userId}`
+        `https://dishdash-server.onrender.com/api/user/get/${order.userId}`
       );
       setUser(response.data);
     } catch (error) {
@@ -31,7 +31,7 @@ const RestaurantOrders = ({ order }) => {
   const fetchRestaurantData = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/restaurant/get/${params.id}`
+        `https://dishdash-server.onrender.com/api/restaurant/get/${params.id}`
       );
       setRestaurant(response.data);
     } catch (error) {
@@ -50,7 +50,7 @@ const RestaurantOrders = ({ order }) => {
 
     try {
       const response = await axios.put(
-        `http://localhost:3000/api/order/update/orderstatus/${order._id}`,
+        `https://dishdash-server.onrender.com/api/order/update/orderstatus/${order._id}`,
         { orderStatus: newOrderStatus }
       );
 

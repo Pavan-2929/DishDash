@@ -13,7 +13,7 @@ const UserDeleteModal = ({ toggleDeleteModal }) => {
   const handleDeleteUser = async () => {
     try {
       const response = await axios.delete(
-        "http://localhost:3000/api/auth/delete",
+        "https://dishdash-server.onrender.com/api/auth/delete",
         {
           withCredentials: true,
         }

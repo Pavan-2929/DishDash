@@ -9,7 +9,7 @@ const RestaurantCard = ({ restaurant, path, fetchRestaurants }) => {
   const fetchReviews = async (e) => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/review/get/restaurant/${restaurant._id}`
+        `https://dishdash-server.onrender.com/api/review/get/restaurant/${restaurant._id}`
       );
 
     } catch (error) {

@@ -17,7 +17,7 @@ const Rating = () => {
   const fetchReviews = async (e) => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/review/get/restaurant/${params.id}`
+        `https://dishdash-server.onrender.com/api/review/get/restaurant/${params.id}`
       );
 
   
@@ -35,7 +35,7 @@ const Rating = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/review/create",
+        "https://dishdash-server.onrender.com/api/review/create",
         { comment, rating, restaurantId: params.id },
         { withCredentials: true }
       );

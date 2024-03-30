@@ -7,7 +7,7 @@ const ReviewCard = ({ review }) => {
   const fetchUserData = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/user/get/${review.userId}`
+        `https://dishdash-server.onrender.com/api/user/get/${review.userId}`
       );
 
       setUser(response.data);

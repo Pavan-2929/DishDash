@@ -48,7 +48,7 @@ const RestaurantForm = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/restaurant/create",
+        "https://dishdash-server.onrender.com/api/restaurant/create",
         formData
       );
       toast.success("Restaurant created successfully")

@@ -14,13 +14,13 @@ const RestaurantMenu = () => {
   const fetchRestaurantData = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/restaurant/get/${params.id}`
+        `https://dishdash-server.onrender.com/api/restaurant/get/${params.id}`
       );
 
       setRestaurant(response.data);
 
       const response2 = await axios.get(
-        `http://localhost:3000/api/user/get/${response.data?.userId}`
+        `https://dishdash-server.onrender.com/api/user/get/${response.data?.userId}`
       );
       setRestaurantOwner(response2.data);
     } catch (error) {

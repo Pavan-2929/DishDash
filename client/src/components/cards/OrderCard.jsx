@@ -7,7 +7,7 @@ const OrderCard = ({ orderItem }) => {
   const fetchRestaurantData = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/restaurant/get/${orderItem.restaurantId}`
+        `https://dishdash-server.onrender.com/api/restaurant/get/${orderItem.restaurantId}`
       );
       setRestaurantData(response.data);
     } catch (error) {

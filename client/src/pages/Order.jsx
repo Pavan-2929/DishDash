@@ -13,7 +13,7 @@ const Order = () => {
     try {
       setIsLoading(true)
       const response = await axios.get(
-        "http://localhost:3000/api/order/get/userId",
+        "https://dishdash-server.onrender.com/api/order/get/userId",
         { withCredentials: true }
       );
       setOrders(response.data);

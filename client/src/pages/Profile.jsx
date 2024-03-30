@@ -84,7 +84,7 @@ const Profile = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/user/update",
+        "https://dishdash-server.onrender.com/api/user/update",
         formData,
         {
           withCredentials: true,

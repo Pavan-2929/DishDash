@@ -58,7 +58,7 @@ const SingleRestaurant = () => {
     e.preventDefault();
     try {
       const response = await axios.put(
-        `http://localhost:3000/api/restaurant/update/${params.id}`,
+        `https://dishdash-server.onrender.com/api/restaurant/update/${params.id}`,
         formData
       );
       navigate("/");
@@ -128,7 +128,7 @@ const SingleRestaurant = () => {
   const fetchRestaurantData = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/restaurant/get/${params.id}`
+        `https://dishdash-server.onrender.com/api/restaurant/get/${params.id}`
       );
 
       setFormData(response.data);
@@ -150,7 +150,7 @@ const SingleRestaurant = () => {
   const fetchOrderByRestaurntId = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/order/get/restaurantId/${params.id}`
+        `https://dishdash-server.onrender.com/api/order/get/restaurantId/${params.id}`
       );
 
 

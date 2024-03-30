@@ -43,7 +43,7 @@ const CartIcon = () => {
     if (paymentMethod === "cash") {
       toggleModal();
       await axios.post(
-        "http://localhost:3000/api/order/create",
+        "https://dishdash-server.onrender.com/api/order/create",
         { cart, paymentMethod },
         { withCredentials: true }
       );
@@ -58,16 +58,16 @@ const CartIcon = () => {
     const stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLISH_KEY);
 
     const response1 = await axios.post(
-      "http://localhost:3000/api/order/create",
+      "https://dishdash-server.onrender.com/api/order/create",
       { cart, paymentMethod },
       { withCredentials: true }
     );
 
 
     const response = await axios.post(
-      "http://localhost:3000/api/create-checkout-session",
+      "https://dishdash-server.onrender.com/api/create-checkout-session",
       cart
-      );
+    );
       
       const session = response.data;
       
