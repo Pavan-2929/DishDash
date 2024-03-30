@@ -10,7 +10,9 @@ import reviewRouter from "./routes/review.routes.js";
 import orderRouter from "./routes/order.routes.js";
 
 const app = express();
-app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
+app.use(
+  cors({ credentials: true, origin: "https://dishdash-2929.onrender.com" })
+);
 app.use(express.json());
 dotenv.config();
 
@@ -59,8 +61,8 @@ app.post("/api/create-checkout-session", async (req, res, next) => {
       payment_method_types: ["card"],
       line_items: lineItems,
       mode: "payment",
-      success_url: "http://localhost:5173/payment-success",
-      cancel_url: "http://localhost:5173/payment-failure",
+      success_url: "https://dishdash-2929.onrender.com/payment-success",
+      cancel_url: "https://dishdash-2929.onrender.com/payment-failure",
     });
 
     res.json({ id: session.id });
