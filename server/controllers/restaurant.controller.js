@@ -52,7 +52,7 @@ export const updateRestaurant = async (req, res, next) => {
 
     res.status(200).json(updatedRestaurantData);
   } catch (error) {
-    console.log(data);
+    console.log(error);
   }
 };
 

@@ -27,21 +27,9 @@ const Register = () => {
       if (response.status === 200) {
         dispatch(login());
         navigate("/");
-        toast.success("Registration Successfully", {
-          style: {
-            borderRadius: "10px",
-            background: "#282828",
-            color: "#fff",
-          },
-        });
+        toast.success("Registration Successfully")
       } else {
-        toast.error("Something went wrong", {
-          style: {
-            borderRadius: "10px",
-            background: "#282828",
-            color: "#fff",
-          },
-        });
+        toast.error("Something went wrong");
         console.log(`Unexpected status code: ${response.status}`);
       }
     } catch (error) {

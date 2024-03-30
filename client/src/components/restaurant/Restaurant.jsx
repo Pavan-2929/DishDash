@@ -14,7 +14,7 @@ const Restaurant = () => {
         { withCredentials: true }
       );
 
-      console.log(response.data);
+
       setRestaurants(response.data);
     } catch (error) {
       console.log(error);

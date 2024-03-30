@@ -11,7 +11,7 @@ const RestaurantDeleteModal = ({ toggleModal, restaurantId }) => {
       await axios.delete(`http://localhost:3000/api/restaurant/delete/${restaurantId}`, {
         withCredentials: true,
       });
-      console.log("hi");
+
       toast.success("restaurant deleted successfully");
       navigate("/restaurant");
     } catch (error) {

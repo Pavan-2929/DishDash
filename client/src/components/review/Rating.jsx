@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Comments from "./Comments";
 import ReviewCard from "../cards/ReviewCard";
+import toast from "react-hot-toast";
 
 const Rating = () => {
   const params = useParams();
@@ -20,7 +21,7 @@ const Rating = () => {
         `http://localhost:3000/api/review/get/restaurant/${params.id}`
       );
 
-      console.log(response);
+  
       setComments(response.data);
     } catch (error) {
       console.log(error);
@@ -40,7 +41,7 @@ const Rating = () => {
         { withCredentials: true }
       );
 
-      console.log(response);
+    toast.success("Review created successfully")
     } catch (error) {
       console.log(error);
     }

@@ -5,7 +5,7 @@ export const createOrder = async (req, res, next) => {
     const userId = req.id;
 
     const { cart, paymentMethod } = req.body;
-    console.log(cart);
+
     const newOrder = await Order.create({
       userId,
       orderItems: cart,
@@ -47,7 +47,7 @@ export const getOrdersbyRestaurantId = async (req, res, next) => {
 export const updateOrderStatus = async (req, res, next) => {
   try {
     const orderId = req.params.id;
-    console.log(req.body);
+
     const updatedOrder = await Order.findByIdAndUpdate(
       orderId,
       { $set: req.body },

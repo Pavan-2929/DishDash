@@ -54,13 +54,11 @@ const RestaurantOrders = ({ order }) => {
         { orderStatus: newOrderStatus }
       );
 
-      console.log(response);
     } catch (error) {
       console.log(error);
     }
   };
 
-  console.log(orderStatus);
 
   return (
     <div className="p-4 border rounded-md shadow-md mb-8 bg-gray-200 mt-8 border-gray-500 max-w-7xl mx-auto">

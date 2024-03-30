@@ -33,32 +33,14 @@ const GoogleAuth = () => {
       if (response.status === 200) {
         dispatch(login());
         navigate("/");
-        toast.success("LoggedIn Successfully", {
-          style: {
-            borderRadius: "10px",
-            background: "#282828",
-            color: "#fff",
-          },
-        });
+        toast.success("LoggedIn Successfully");
       } else {
-        toast.error("Enter valid Information", {
-          style: {
-            borderRadius: "10px",
-            background: "#282828",
-            color: "#fff",
-          },
-        });
+        toast.error("Enter valid Information");
         console.log(`Unexpected status code: ${response.status}`);
       }
     } catch (error) {
       console.log(error);
-      toast.error(`${error.response.data.message}`, {
-        style: {
-          borderRadius: "10px",
-          background: "#282828",
-          color: "#fff",
-        },
-      });
+      toast.error(`${error.response.data.message}`);
     }
   };
   return (

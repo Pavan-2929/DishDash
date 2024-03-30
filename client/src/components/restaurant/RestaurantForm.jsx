@@ -12,6 +12,7 @@ import { app } from "../../firebase";
 import { useSelector } from "react-redux";
 import MenuCard from "../cards/MenuCard";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const RestaurantForm = () => {
 
@@ -28,7 +29,6 @@ const RestaurantForm = () => {
     menuItems: [],
     imageUrl: "",
   });
-  console.log(formData);
   const [menuName, setMenuName] = useState("");
   const [menuPrice, setMenuPrice] = useState("");
   const [menuDescription, setMenuDescription] = useState("");
@@ -51,8 +51,9 @@ const RestaurantForm = () => {
         "http://localhost:3000/api/restaurant/create",
         formData
       );
+      toast.success("Restaurant created successfully")
     navigate("/");
-      console.log(response);
+      
     } catch (error) {
       console.log(error);
     }

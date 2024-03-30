@@ -36,7 +36,6 @@ function Header() {
     }
   };
 
-  console.log(orders);
   useEffect(() => {
     if (currentUser) {
       fetchOrders();

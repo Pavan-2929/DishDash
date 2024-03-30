@@ -15,6 +15,7 @@ import MenuCard from "../cards/MenuCard";
 import RestaurantOrders from "../cards/RestarantOrder";
 import { useNavigate } from "react-router-dom";
 import RestaurantDeleteModal from "../modal/RestaurantDeleteModal";
+import toast from "react-hot-toast";
 
 const SingleRestaurant = () => {
   const params = useParams();
@@ -61,7 +62,7 @@ const SingleRestaurant = () => {
         formData
       );
       navigate("/");
-      console.log(response);
+      toast.success("Restaurant updated successfully")
     } catch (error) {
       console.log(error);
     }
@@ -152,7 +153,7 @@ const SingleRestaurant = () => {
         `http://localhost:3000/api/order/get/restaurantId/${params.id}`
       );
 
-      console.log(response);
+
       setOrders(response.data);
     } catch (error) {
       console.log(error);
@@ -376,7 +377,7 @@ const SingleRestaurant = () => {
               type="submit"
               className="bg-amber-500 text-white py-2 px-4 rounded-md hover:bg-amber-600"
             >
-              Submit
+              Update
             </button>
           </div>
         </form>

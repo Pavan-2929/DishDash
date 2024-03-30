@@ -6,6 +6,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { NavLink, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const CartIcon = () => {
   const currentUser = useSelector((state) => state.auth.currentUser);
@@ -46,12 +47,13 @@ const CartIcon = () => {
         { cart, paymentMethod },
         { withCredentials: true }
       );
+      toast.success("order created successfully")
       navigate("/payment-success");
     } else {
       makePayment();
     }
   };
-
+  
   const makePayment = async () => {
     const stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLISH_KEY);
 
@@ -61,25 +63,23 @@ const CartIcon = () => {
       { withCredentials: true }
     );
 
-    console.log(response1);
 
     const response = await axios.post(
       "http://localhost:3000/api/create-checkout-session",
       cart
-    );
+      );
+      
+      const session = response.data;
+      
+      const result = stripe.redirectToCheckout({
+        sessionId: session.id,
+      });
+      
+      if (result.error) {
+        console.log(result.error);
+      }
+    };
 
-    const session = response.data;
-
-    const result = stripe.redirectToCheckout({
-      sessionId: session.id,
-    });
-
-    if (result.error) {
-      console.log(result.error);
-    }
-  };
-
-  console.log(paymentMethod);
   return (
     <div className="relative">
       <div className="fixed top-24 md:top-4 right-4 z-50">
@@ -177,10 +177,10 @@ const CartIcon = () => {
               <div className="flex flex-wrap gap-4 items-center mt-5 text-2xl">
                 <p className="text-red-500">
                   Please add Your address at profile page
-                </p>
                 <NavLink onClick={toggleModal} className="underline text-blue-500" to={"/profile"}>
                   Visit
-                </NavLink>{" "}
+                </NavLink>
+                </p>
                 <div>
                   <button
                     type="button"

@@ -17,7 +17,6 @@ const Menu = () => {
         "http://localhost:3000/api/restaurant/datas"
       );
 
-      console.log(response);
       setRestaurans(response.data);
     } catch (error) {
       console.log(error);

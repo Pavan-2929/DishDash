@@ -26,7 +26,7 @@ export const getReviewByRestaurantId = async (req, res, next) => {
     const restaurantId = req.params.id;
 
     const reviews = await Review.find({ restaurantId });
-    console.log(reviews);
+
     res.status(200).json(reviews);
   } catch (error) {
     console.log(error);

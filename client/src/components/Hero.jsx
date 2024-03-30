@@ -1,4 +1,5 @@
 import React from "react";
+import {NavLink} from 'react-router-dom'
 
 const Hero = () => {
   return (
@@ -16,9 +17,9 @@ const Hero = () => {
           a warm, cheesy slice fresh out of the oven.
         </p>
         <div className="flex gap-4 text-sm justify-center">
-          <button className="flex justify-center  uppercase items-center gap-2 bg-red-500 text-white px-4 py-2 rounded-full">
+          <NavLink to="/menu" className="flex justify-center  uppercase items-center gap-2 bg-red-500 text-white px-4 py-2 rounded-full">
             Order now
-          </button>
+          </NavLink>
           <button className="flex items-center border-0 gap-2 text-gray-600 bg-gray-200 font-semibold px-4 py-2  rounded-full">
             Learn more
           </button>
