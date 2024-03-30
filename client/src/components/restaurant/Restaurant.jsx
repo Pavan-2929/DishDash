@@ -1,8 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import SkeletonLoader from "../loader/Card";
 import RestaurantCard from "../cards/RestaurantCard";
+import AddRestaurant from "../loader/AddRestaurant";
 
 const Restaurant = () => {
   const [restaurants, setRestaurants] = useState([]);
@@ -42,7 +42,7 @@ const Restaurant = () => {
             </div>
           ))}
         <Link to="/restaurant/create">
-          <SkeletonLoader />
+          <AddRestaurant />
         </Link>
       </div>
     </div>

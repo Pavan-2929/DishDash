@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Comments from "./Comments";
 import ReviewCard from "../cards/ReviewCard";
 import toast from "react-hot-toast";
 
