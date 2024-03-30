@@ -14,10 +14,11 @@ import { useParams } from "react-router-dom";
 import MenuCard from "../cards/MenuCard";
 import RestaurantOrders from "../cards/RestarantOrder";
 import { useNavigate } from "react-router-dom";
+import RestaurantDeleteModal from "../modal/RestaurantDeleteModal";
 
 const SingleRestaurant = () => {
   const params = useParams();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const currentUser = useSelector((state) => state.auth.currentUser);
   const [formData, setFormData] = useState({
@@ -39,6 +40,11 @@ const SingleRestaurant = () => {
   const [imagePercentage, setImagePercentage] = useState(0);
   const [imageError, setImageError] = useState(false);
   const [orders, setOrders] = useState("");
+  const [showModal, setShowModal] = useState(false);
+
+  const toggleModal = () => {
+    setShowModal(!showModal);
+  };
 
   const handleChange = (e) => {
     setFormData({
@@ -54,7 +60,7 @@ const SingleRestaurant = () => {
         `http://localhost:3000/api/restaurant/update/${params.id}`,
         formData
       );
-        navigate("/")
+      navigate("/");
       console.log(response);
     } catch (error) {
       console.log(error);
@@ -385,6 +391,22 @@ const SingleRestaurant = () => {
             <RestaurantOrders order={order} key={order._id} />
           ))}
       </div>
+
+      <div className="flex justify-center mt-14">
+        <button
+          className="bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600"
+          onClick={toggleModal}
+        >
+          Want to Delete Your Restaurant?
+        </button>
+      </div>
+
+      {showModal && (
+        <RestaurantDeleteModal
+          restaurantId={params.id}
+          toggleModal={toggleModal}
+        />
+      )}
     </div>
   );
 };

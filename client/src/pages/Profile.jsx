@@ -12,6 +12,9 @@ import toast from "react-hot-toast";
 import { logout, setUser } from "../redux/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 import indianStates from "../data/stateData";
+import LogOutModal from "../components/modal/LogOutModal";
+import UserDeleteModal from "../components/modal/UserDeleteModal";
+
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -36,6 +39,16 @@ const Profile = () => {
   const [imagePercentage, setImagePercentage] = useState(0);
   const [imageError, setImageError] = useState(false);
   const [selectedState, setSelectedState] = useState("");
+  const [isLogOutModal, setIsLogOutModal] = useState(false);
+  const [deleteModal, setDeleteModal] = useState(false)
+
+  const toggleLogOutModal = () => {
+    setIsLogOutModal(!isLogOutModal);
+  };
+
+  const toggleDeleteModal = () => {
+    setDeleteModal(!deleteModal);
+  };
 
   const handleChange = (e) => {
     if (
@@ -79,31 +92,13 @@ const Profile = () => {
       );
       if (response.status === 200) {
         dispatch(setUser(formData));
-        toast.success("Profile updated Sucessfully", {
-          style: {
-            borderRadius: "10px",
-            background: "#282828",
-            color: "#fff",
-          },
-        });
+        toast.success("Profile updated Sucessfully");
       } else {
-        toast.error("Something went wrong", {
-          style: {
-            borderRadius: "10px",
-            background: "#282828",
-            color: "#fff",
-          },
-        });
+        toast.error("Something went wrong");
         console.log(`Unexpected status code: ${response.status}`);
       }
     } catch (error) {
-      toast.error(`${error.response.data.message}`, {
-        style: {
-          borderRadius: "10px",
-          background: "#282828",
-          color: "#fff",
-        },
-      });
+      toast.error(`${error.response.data.message}`);
       console.log(error);
     }
   };
@@ -139,86 +134,6 @@ const Profile = () => {
       handlefileUpload(image);
     }
   }, [image]);
-
-  const handleLogout = async () => {
-    try {
-      const response = await axios.get(
-        "http://localhost:3000/api/auth/logout",
-        { withCredentials: true }
-      );
-
-      if (response.status === 200) {
-        dispatch(logout());
-        dispatch(setUser(null));
-        navigate("/login");
-        toast.success("Logout Successfully", {
-          style: {
-            borderRadius: "10px",
-            background: "#282828",
-            color: "#fff",
-          },
-        });
-      } else {
-        toast.error("Something went wrong", {
-          style: {
-            borderRadius: "10px",
-            background: "#282828",
-            color: "#fff",
-          },
-        });
-        console.log(`Unexpected status code: ${response.status}`);
-      }
-    } catch (error) {
-      toast.error(`${error}`, {
-        style: {
-          borderRadius: "10px",
-          background: "#282828",
-          color: "#fff",
-        },
-      });
-      console.log(error);
-    }
-  };
-
-  const handleDeleteUser = async () => {
-    try {
-      const response = await axios.delete(
-        "http://localhost:3000/api/auth/delete",
-        {
-          withCredentials: true,
-        }
-      );
-
-      if (response.status === 200) {
-        navigate("/login");
-        dispatch(logout());
-        toast.success("User deleted Successfully", {
-          style: {
-            borderRadius: "10px",
-            background: "#282828",
-            color: "#fff",
-          },
-        });
-      } else {
-        toast.error("Something went wrong", {
-          style: {
-            borderRadius: "10px",
-            background: "#282828",
-            color: "#fff",
-          },
-        });
-        console.log(`Unexpected status code: ${response.status}`);
-      }
-    } catch (error) {
-      toast.error(`${error}`, {
-        style: {
-          borderRadius: "10px",
-          background: "#282828",
-          color: "#fff",
-        },
-      });
-    }
-  };
 
   return (
     <div className="flex justify-around mt-6">
@@ -366,18 +281,21 @@ const Profile = () => {
         <div className="flex justify-between mt-4 text-[1.2rem] =">
           <div
             className="cursor-pointer underline text-red-500 hover:text-red-600"
-            onClick={handleLogout}
+            onClick={toggleLogOutModal}
           >
             Signout
           </div>
           <div
             className="cursor-pointer underline text-red-500 hover:text-red-600"
-            onClick={handleDeleteUser}
+            onClick={toggleDeleteModal}
           >
             Delete Account
           </div>
         </div>
       </form>
+
+      {isLogOutModal && <LogOutModal toggleLogOutModal={toggleLogOutModal} />}
+      {deleteModal && <UserDeleteModal toggleDeleteModal={toggleDeleteModal}/>}
     </div>
   );
 };

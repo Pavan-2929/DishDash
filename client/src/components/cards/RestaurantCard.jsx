@@ -32,18 +32,7 @@ const RestaurantCard = ({ restaurant, path, fetchRestaurants }) => {
     return total / reviews.length;
   };
 
-  const deleteRestaurant = async (id) => {
-    try {
-      const response = await axios.delete(
-        `http://localhost:3000/api/restaurant/delete/${id}`,
-        { withCredentials: true }
-      );
 
-      fetchRestaurants()
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   return (
     <div
@@ -83,12 +72,6 @@ const RestaurantCard = ({ restaurant, path, fetchRestaurants }) => {
           >
             Explore
           </Link>
-          <button
-            className="bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600"
-            onClick={() => deleteRestaurant(restaurant._id)}
-          >
-            Delete
-          </button>
         </div>
       </div>
     </div>
