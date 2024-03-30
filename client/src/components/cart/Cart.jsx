@@ -26,7 +26,7 @@ const Cart = () => {
               />
               <div className="flex flex-col flex-grow">
                 <p className="font-semibold">{item.name}</p>
-                <p className="text-gray-600">${item.price}</p>
+                <p className="text-gray-600">${item.price * item.quantity}</p>
                 <p className="text-gray-600">Quantity: {item.quantity}</p>
               </div>
               <div>

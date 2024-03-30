@@ -48,7 +48,7 @@ const MenuCart = ({ menuItem, index, restaurantId }) => {
           className="flex items-center mx-auto bg-red-500 text-white py-1 px-3 rounded-md hover:bg-red-600 mt-4 text-sm transition-all duration-300 ease-in-out"
           onClick={handleCart}
         >
-          <FaCartPlus className="mr-1" /> Add To Cart ({menuItem.price})
+          <FaCartPlus className="mr-1" /> Add To Cart ₹({menuItem.price})
         </button>
       </div>
     </div>

@@ -18,9 +18,6 @@ const cartSlice = createSlice({
 
       if (existingItemIndex !== -1) {
         state.cart[existingItemIndex].quantity += 1;
-        state.cart[existingItemIndex].price =
-          state.cart[existingItemIndex].price *
-          state.cart[existingItemIndex].quantity;
       } else {
         state.cart.push({ ...newItem, quantity: 1 });
       }

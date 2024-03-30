@@ -61,11 +61,13 @@ const RestaurantMenu = () => {
               </div>
               <div className="flex items-center mb-2 text-gray-600">
                 <FiDollarSign className="mr-1" />
-                <p>Delivery Price: ${restaurant.deliveryPrice}</p>
+                <p>Delivery Price: ₹{restaurant.deliveryPrice}</p>
               </div>
               <div className="flex items-center mb-2 text-gray-600">
                 <FiClock className="mr-1" />
-                <p>Delivery Time: {restaurant.estimatedDeliveryTime} minutes</p>
+                <p>
+                  Processing Time: {restaurant.estimatedDeliveryTime} minutes
+                </p>
               </div>
               <div>
                 <h2 className="text-2xl font-semibold mb-2 mt-6">Contact Us</h2>
@@ -87,13 +89,17 @@ const RestaurantMenu = () => {
             <h2 className="text-2xl font-semibold mb-4">Explore our Dishes</h2>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               {restaurant.menuItems.map((menuItem, index) => (
-                <MenuCart key={index} menuItem={menuItem} restaurantId={restaurant._id}/>
+                <MenuCart
+                  key={index}
+                  menuItem={menuItem}
+                  restaurantId={restaurant._id}
+                />
               ))}
             </div>
           </div>
 
           <div className="mt-8">
-            <Review/>
+            <Review />
           </div>
         </div>
       )}

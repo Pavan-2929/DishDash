@@ -3,7 +3,7 @@ import { FiClock, FiDollarSign, FiMapPin } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-const RestaurantCard = ({ restaurant, path, fetchRestaurants }) => {
+const RestaurantCard = ({ restaurant, path }) => {
   const [reviews, setReviews] = useState([]);
 
   const fetchReviews = async (e) => {
@@ -56,11 +56,11 @@ const RestaurantCard = ({ restaurant, path, fetchRestaurants }) => {
         </div>
         <div className="flex items-center mb-2 text-gray-600">
           <FiDollarSign className="mr-1" />
-          <p>Delivery Price: ${restaurant.deliveryPrice}</p>
+          <p>Delivery Price: ₹{restaurant.deliveryPrice}</p>
         </div>
         <div className="flex items-center mb-2 text-gray-600">
           <FiClock className="mr-1" />
-          <p>Delivery Time: {restaurant.estimatedDeliveryTime} minutes</p>
+          <p>Processing Time: {restaurant.estimatedDeliveryTime} minutes</p>
         </div>
         <div className="flex items-center text-gray-600">
           <p>Average Rating: {countAverageReviews().toFixed(1)} / 5 ★</p>

@@ -231,7 +231,7 @@ const SingleRestaurant = () => {
           </div>
           <div className="mb-4">
             <label htmlFor="estimatedDeliveryTime">
-              Estimated Delivery Time
+              Processing Time
             </label>
             <input
               type="number"

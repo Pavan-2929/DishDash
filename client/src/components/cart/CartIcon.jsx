@@ -47,13 +47,13 @@ const CartIcon = () => {
         { cart, paymentMethod },
         { withCredentials: true }
       );
-      toast.success("order created successfully")
+      toast.success("order created successfully");
       navigate("/payment-success");
     } else {
       makePayment();
     }
   };
-  
+
   const makePayment = async () => {
     const stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLISH_KEY);
 
@@ -63,22 +63,21 @@ const CartIcon = () => {
       { withCredentials: true }
     );
 
-
     const response = await axios.post(
       "https://dishdash-server.onrender.com/api/create-checkout-session",
       cart
     );
-      
-      const session = response.data;
-      
-      const result = stripe.redirectToCheckout({
-        sessionId: session.id,
-      });
-      
-      if (result.error) {
-        console.log(result.error);
-      }
-    };
+
+    const session = response.data;
+
+    const result = stripe.redirectToCheckout({
+      sessionId: session.id,
+    });
+
+    if (result.error) {
+      console.log(result.error);
+    }
+  };
 
   return (
     <div className="relative">
@@ -119,6 +118,14 @@ const CartIcon = () => {
             </div>
             {currentStep === "cart" && <Cart />}
             {currentStep === "address" && <CartAddress />}
+
+            <div className="mt-4 border-t pt-4">
+              <div className="text-xl font-bold">
+                Total Price: ₹
+                {cart &&
+                  cart.reduce((prev, c) => prev + c.price * c.quantity, 0)}
+              </div>
+            </div>
             <div className="mt-4">
               <h3 className="text-lg font-semibold mb-2">Payment Method</h3>
               <div>
@@ -177,9 +184,13 @@ const CartIcon = () => {
               <div className="flex flex-wrap gap-4 items-center mt-5 text-2xl">
                 <p className="text-red-500">
                   Please add Your address at profile page
-                <NavLink onClick={toggleModal} className="underline text-blue-500" to={"/profile"}>
-                  Visit
-                </NavLink>
+                  <NavLink
+                    onClick={toggleModal}
+                    className="underline text-blue-500"
+                    to={"/profile"}
+                  >
+                    Visit
+                  </NavLink>
                 </p>
                 <div>
                   <button
